@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Login - {{ env('APP_NAME', 'Laravel') }}</title>
 
-  {{-- <link href="{{ asset('assets/dist/img/icon-login.png')}}" rel="icon">
-  <link href="{{ asset('assets/dist/img/icon-login.png')}}" rel="apple-touch-icon"> --}}
+  <link href="{{ asset('assets') }}/img/logo.png" rel="icon">
+  <link href="{{ asset('assets') }}/img/logo.png" rel="apple-touch-icon">
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
@@ -21,7 +21,7 @@
         background-color: transparent;
         border: transparent;
         border-radius: 0.25rem;
-        max-width: 100%;
+        max-width: 80%;
         height: auto;
     }
   </style>
@@ -42,7 +42,7 @@
         </div>
         @endif
         <div class="login-logo">
-            <img src="#" alt="" class="img-logo">
+            <img src="{{ asset('assets') }}/img/logo.png" alt="" class="img-logo">
         </div>
 
     <div class="card card-outline card-primary">
@@ -77,6 +77,7 @@
                         </div>
                 @enderror
             </div>
+
             <div class="row">
                 <!-- /.col -->
                 <div class="col-12">
@@ -84,6 +85,10 @@
                 </div>
                 <!-- /.col -->
             </div>
+
+            <p class="mt-3 text-center">
+                <a href="{{ route('register') }}">Belum punya akun? Daftar</a>
+            </p>
         </form>
         </div>
         <!-- /.card-body -->

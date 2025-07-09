@@ -37,9 +37,9 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4" style="position:fixed;">
     <!-- Brand Logo -->
-    <a href="{{ route('dashboard') }}" class="brand-link" style="background-color: #f8f9fa; border: 1px solid #dee2e6;">
-        {{-- <img src="{{asset('assets/dist/img/login.png')}}" class="rounded img-logo"> --}}
-        <h1 class="text-dark">CMS</h1>
+    <a href="{{ route('dashboard') }}" class="brand-link d-flex align-items-center justify-content-center" style="background-color: #f8f9fa; border: 1px solid #dee2e6;">
+        <img src="{{ asset('assets') }}/img/logo.png" class="rounded img-logo">
+        {{-- <h1 class="text-dark">CMS</h1> --}}
     </a>
 
     <!-- Sidebar -->

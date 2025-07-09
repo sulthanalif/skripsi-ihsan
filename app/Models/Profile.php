@@ -12,8 +12,16 @@ class Profile extends Model
     protected $fillable = [
         'user_id',
         'nik',
-        'no_kk',
-        'address',
+        'kk',
+        'birth_place',
+        'birth_date',
+        'gender',
+        'nationality',
+        'religion',
+        'marital_status',
+        'occupation',
+        'address_ktp',
+        'address_domisili',
     ];
 
     public function user(): BelongsTo

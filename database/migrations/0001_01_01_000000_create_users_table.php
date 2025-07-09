@@ -25,8 +25,16 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->string('nik')->unique();
-            $table->string('no_kk')->unique();
-            $table->string('address')->nullable();
+            $table->string('kk');
+            $table->string('birth_place');
+            $table->date('birth_date');
+            $table->enum('gender', ['Laki-laki', 'Perempuan']);
+            $table->string('nationality');
+            $table->enum('religion', ['Islam', 'Kristen Protestan', 'Kristen Katolik', 'Hindu', 'Budha', 'Konghucu']);
+            $table->enum('marital_status', ['Menikah', 'Belum Menikah', 'Janda', 'Duda']);
+            $table->string('occupation');
+            $table->text('address_ktp');
+            $table->text('address_domisili');
             $table->timestamps();
         });
 
@@ -52,6 +60,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('users');
+        Schema::dropIfExists('profiles');
         Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
     }

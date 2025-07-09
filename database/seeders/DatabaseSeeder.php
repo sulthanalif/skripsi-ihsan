@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $roleSuperAdmin = Role::create(['name' => 'super-admin']);
+        $roleWarga = Role::create(['name' => 'warga']);
 
 
         $permissions = [
@@ -42,11 +43,19 @@ class DatabaseSeeder extends Seeder
 
         $roleSuperAdmin->givePermissionTo($permissions);
 
+        $permissionWarga = [
+            'dashboard',
+        ];
+
+        $roleWarga->givePermissionTo($permissionWarga);
+
+
         $superAdmin = User::factory()->create([
             'name' => 'Super Admin',
             'email' => 'superadmin@mail.com',
         ]);
 
         $superAdmin->assignRole($roleSuperAdmin);
+
     }
 }

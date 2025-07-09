@@ -3,8 +3,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>@yield('title') - {{ env('APP_NAME', 'Laravel') }}</title>
 
-  {{-- <link href="{{ asset('assets/dist/img/icon-login.png')}}" rel="icon">
-  <link href="{{ asset('assets/dist/img/icon-login.png')}}" rel="apple-touch-icon"> --}}
+  <link href="{{ asset('assets') }}/img/logo.png" rel="icon">
+  <link href="{{ asset('assets') }}/img/logo.png" rel="apple-touch-icon">
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
@@ -56,7 +56,7 @@
         padding: 0.25rem;
         border-radius: 0.25rem;
         /* box-shadow: 0 1px 2px rgb(0 0 0 / 8%); */
-        max-width: 100%;
+        max-width: 60%;
         height: auto;
     }
     </style>
