@@ -13,21 +13,28 @@ return [
         'icon' => 'fas fa-database',
         'route' => 'master.index',
         'permission' => 'master-data',
-        'active_patterns' => ['admin/users*', 'admin/role-permission*'],
+        'active_patterns' => ['admin/master/*'],
         'children' => [
+            [
+                'label' => 'Penduduk',
+                'icon' => 'fas fa-users',
+                'route' => 'residents',
+                'permission' => 'manage-residents',
+                'active_patterns' => 'admin/master/resident*',
+            ],
             [
                 'label' => 'Users',
                 'icon' => 'fas fa-users',
                 'route' => 'users',
                 'permission' => 'manage-users',
-                'active_patterns' => 'admin/users*',
+                'active_patterns' => 'admin/master/users*',
             ],
             [
                 'label' => 'Role & Permission',
                 'icon' => 'fas fa-user-tag',
                 'route' => 'role-permission.index',
                 'permission' => 'manage-roles',
-                'active_patterns' => 'admin/role-permission*',
+                'active_patterns' => 'admin/master/role-permission*',
             ],
         ]
     ],

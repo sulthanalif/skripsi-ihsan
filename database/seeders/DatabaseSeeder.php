@@ -35,6 +35,11 @@ class DatabaseSeeder extends Seeder
             'role-create',
             'role-update',
             'role-delete',
+
+            'manage-residents',
+            'resident-create',
+            'resident-update',
+            'resident-delete'
         ];
 
         foreach ($permissions as $permission) {

@@ -34,7 +34,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="password" class="form-label">Password</label>
-                                <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="password"  placeholder="Masukan Password"  value="{{ old('password') }}">
+                                <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="password_edit"  placeholder="Masukan Password"  value="{{ old('password') }}">
                                 @error('password')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
