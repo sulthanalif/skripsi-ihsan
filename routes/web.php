@@ -7,10 +7,16 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ResidentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RolePermissionController;
+use App\Http\Controllers\Document\DocumentTypeController;
+use App\Http\Controllers\Document\DocumentFieldController;
+use App\Http\Controllers\Document\GeneratedDocumentController;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Route::resource('dynamic-form', App\Http\Controllers\DynamicFormController::class);
+
 
 Route::get('/login', [AuthController::class, 'loginPage'])->name('login');
 Route::get('/register', [AuthController::class, 'registerPage'])->name('register');
@@ -28,6 +34,9 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::prefix('master')->group(function () {
+
+
+
         Route::get('/users', [UserController::class, 'index'])->middleware('can:manage-users')->name('users');
         Route::get('/user/{user}/show', [UserController::class, 'show'])->middleware('can:manage-users')->name('user.show');
         Route::post('/users', [UserController::class, 'store'])->middleware('can:user-create')->name('user.store');
@@ -62,6 +71,29 @@ Route::middleware('auth')->prefix('admin')->group(function () {
         Route::get('/resident/{user}/show', [ResidentController::class, 'show'])->middleware('can:manage-residents')->name('resident.show');
         Route::post('/resident', [ResidentController::class, 'store'])->middleware('can:resident-create')->name('resident.store');
         Route::put('/resident/{user}', [ResidentController::class, 'update'])->middleware('can:resident-update')->name('resident.update');
+
+        Route::prefix('document')->group(function () {
+            Route::get('/document-type', [DocumentTypeController::class, 'index'])->middleware('can:document-type')->name('document.type.index');
+            Route::get('/document-type/show/{document_type}', [DocumentTypeController::class, 'show'])->middleware('can:document-type')->name('document.type.show');
+            Route::post('/document-type', [DocumentTypeController::class, 'store'])->middleware('can:document-type')->name('document.type.store');
+            Route::put('/document-type/{id}', [DocumentTypeController::class, 'update'])->middleware('can:document-type')->name('document.type.update');
+            Route::post('/document-type/{id}', [DocumentTypeController::class, 'destroy'])->middleware('can:document-type')->name('document.type.destroy');
+
+            Route::get('/document-field/{document_type}', [DocumentTypeController::class, 'indexFields'])->middleware('can:document-field')->name('document.field.index');
+            Route::get('/document-field/show/{form_field}', [DocumentFieldController::class, 'show'])->middleware('can:document-field')->name('document.field.show');
+            Route::post('/document-field/{document_type}', [DocumentFieldController::class, 'store'])->middleware('can:document-field')->name('document.field.store');
+            Route::put('/document-field/{document_type}/{form_field}', [DocumentFieldController::class, 'update'])->middleware('can:document-field')->name('document.field.update');
+            Route::post('/document-field/{document_type}/{form_field}', [DocumentFieldController::class, 'destroy'])->middleware('can:document-field')->name('document.field.destroy');
+        });
     });
+
+    Route::get('/document/generate', [GeneratedDocumentController::class, 'index'])->middleware('can:document-create')->name('document.generated.index');
+    Route::get('/document/generate/{document_type}', [GeneratedDocumentController::class, 'create'])->middleware('can:document-create')->name('document.generated.create');
+    Route::get('/document/generate/getUserApprovals/{user}', [GeneratedDocumentController::class, 'userApprovals'])->middleware('can:document-create')->name('document.generated.getUserApprovals');
+    Route::post('/document/generate/{document_type}', [GeneratedDocumentController::class, 'store'])->middleware('can:document-create')->name('document.generated.store');
+    Route::get('/document/generate/edit/{document_type}/{document}', [GeneratedDocumentController::class, 'edit'])->middleware('can:document-create')->name('document.generated.edit');
+    Route::put('/document/generate/{document_type}/{document}', [GeneratedDocumentController::class, 'update'])->middleware('can:document-create')->name('document.generated.update');
+
+    Route::get('/document/generate/download/{document}', [GeneratedDocumentController::class, 'generate'])->middleware('can:document-create')->name('document.generated.download');
 });
 

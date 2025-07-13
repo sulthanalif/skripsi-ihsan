@@ -1,12 +1,14 @@
 @extends('layouts.main')
-@section('title', 'Penduduk')
+@section('title', 'Document Type')
+
 @section('content')
-<section class="content-header">
+    <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Penduduk</h1>
+                <h1>Document Type</h1>
             </div>
+
         </div>
     </div><!-- /.container-fluid -->
 </section>
@@ -19,17 +21,15 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="row">
-                                    @can('residents-delete')
                                         <div class="mt-2">
                                             <a href="#" class="hidden" id="btn-destroy"><i class="fa fa-trash text-red"></i></a>
                                         </div>
-                                    @endcan
                                 </div>
                             </div>
                             <div class="col-md-8">
-                                @can('resident-create')
-                                    <button class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-create"><i class="nav-icon fa fa-plus"></i>  Tambah Penduduk</button>
-                                @endcan
+
+                                    <button class="btn btn-primary float-right" id="btn-create"><i class="nav-icon fa fa-plus"></i>  Tambah Document Type</button>
+
                             </div>
                         </div>
                     </div>
@@ -38,43 +38,34 @@
                             <table class="table table-bordered table-hover" id="data-table" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
-                                        <th>NIK/KK</th>
-                                        <th>Name</th>
-                                        <th>TTL</th>
-                                        <th>JK</th>
-                                        <th>Kewarganegaraan</th>
-                                        <th>Agama</th>
-                                        <th>Status Perkawinan</th>
-                                        <th>Pekerjaan</th>
-                                        <th>Alamat KTP</th>
+                                        <th>Nama</th>
+                                        <th>Deskripsi</th>
+                                        <th>Fields</th>
+                                        <th>Status</th>
                                         <th class="text-center" style="width: 10%">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($users as $user)
+                                    @foreach ($document_types as $document_type)
                                     <tr>
-                                        <td>{{ $user->profile->nik }}/<br>{{ $user->profile->kk }}</td>
-                                        <td>{{ $user->name }}</td>
-                                        <td>{{ $user->profile->birth_place }}, {{ $user->profile->birth_date }}</td>
-                                        <td>{{ $user->profile->gender }}</td>
-                                        <td>{{ $user->profile->nationality }}</td>
-                                        <td>{{ $user->profile->religion }}</td>
-                                        <td>{{ $user->profile->marital_status }}</td>
-                                        <td>{{ $user->profile->occupation }}</td>
-                                        <td>{{ $user->profile->address_ktp }}</td>
+                                        <td>{{ $document_type->name }}</td>
+                                        <td>{{ $document_type->description ?? '-' }}</td>
+                                        <td>{{ $document_type->formFields?->count() }}</td>
+                                        <td>{{ $document_type->status ? 'Aktif' : 'Tidak Aktif' }}</td>
                                         <td class="text-center text-nowrap">
-                                            @can('user-update')
-                                            <a href="#" class="edit" id="btn-edit" data-url="{{ route('resident.update', $user->id) }}" data-id="{{ $user->id }}" data-get="{{ route('resident.show', $user->id) }}">
+
+                                            <a href="{{ route('document.field.index', $document_type->id) }}" >
+                                                <i class="fa fa-file mr-3 text-dark"></i>
+                                            </a>
+                                            <a href="#" class="edit" id="btn-edit" data-url="{{ route('document.type.update', $document_type->id) }}" data-id="{{ $document_type->id }}" data-get="{{ route('document.type.show', $document_type->id) }}">
                                                 <i class="fa fa-pen mr-3 text-dark"></i>
                                             </a>
-                                            @endcan
-                                            @can('user-delete')
-                                                <a href="#" id="btn-destroy" data-id="{{ $user->id }}" data-url="{{ route('user.destroy', $user->id) }}"><i class="fa fa-trash text-red"></i></a>
-                                            @endcan
+
+                                                <a href="#" id="btn-destroy" data-id="{{ $document_type->id }}" data-url="{{ route('document.type.destroy', $document_type->id) }}"><i class="fa fa-trash text-red"></i></a>
+
                                         </td>
                                     </tr>
                                     @endforeach
-
                                 </tbody>
                             </table>
                         </div>
@@ -85,13 +76,19 @@
     </div>
 </section>
 
-@include('back-end.resident.create')
-@include('back-end.resident.edit')
+@include('back-end.document.type.create')
+@include('back-end.document.type.edit')
 @endsection
 
 @push('scripts')
 <script>
     $(document).ready(function() {
+        $('#btn-create').click(function() {
+            $('#name').val('');
+            $('#description').val('');
+            $('#status').attr('checked', true);
+            $('#modal-create').modal('show');
+        });
         $('#data-table tbody').on('click', 'a#btn-destroy', function (e) {
             e.preventDefault(); // Mencegah aksi default dari link anchor
             var arrId = $(this).data('id');
@@ -151,24 +148,12 @@
             .done(function (response) {
                 if(response && response.status){ // Pastikan response dan response.status ada
                     $('#name_edit').val(response.data.name);
-                    $('#email_edit').val(response.data.email);
-                    $('#nik_edit').val(response.data.profile.nik);
-                    $('#kk_edit').val(response.data.profile.kk);
-                    $('#birth_place_edit').val(response.data.profile.birth_place);
-                    $('#birth_date_edit').val(response.data.profile.birth_date);
-                    $('#gender_edit').val(response.data.profile.gender).trigger('change');
-                    $('#nationality_edit').val(response.data.profile.nationality);
-                    $('#religion_edit').val(response.data.profile.religion).trigger('change');
-                    $('#marital_status_edit').val(response.data.profile.marital_status).trigger('change');
-                    $('#occupation_edit').val(response.data.profile.occupation);
-                    $('#address_ktp_edit').val(response.data.profile.address_ktp);
-                    $('#address_domisili_edit').val(response.data.profile.address_domisili);
-                    // $('#password_edit').val(response.data.password);
-
+                    $('#description_edit').val(response.data.description);
+                    $('#status_edit').prop('checked', response.data.status);
                     $("#form-edit").attr('action', url);
                     $('#modal-edit').modal('show');
                 } else {
-                    console.error("Gagal memuat data user atau format respons tidak valid:", response);
+                    console.error("Gagal memuat data atau format respons tidak valid:", response);
                     Swal.fire("Gagal!", "Tidak dapat memuat data pengguna untuk diedit.", "error");
                 }
             })

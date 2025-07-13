@@ -39,7 +39,13 @@ class DatabaseSeeder extends Seeder
             'manage-residents',
             'resident-create',
             'resident-update',
-            'resident-delete'
+            'resident-delete',
+
+            'manage-document-types',
+            'document-type',
+            'document-field',
+            'document-create',
+
         ];
 
         foreach ($permissions as $permission) {
@@ -62,5 +68,10 @@ class DatabaseSeeder extends Seeder
 
         $superAdmin->assignRole($roleSuperAdmin);
 
+
+        $this->call([
+            WargaSeeder::class,
+            DocumentSeeder::class,
+        ]);
     }
 }

@@ -16,6 +16,13 @@ return [
         'active_patterns' => ['admin/master/*'],
         'children' => [
             [
+                'label' => 'Document Type',
+                'icon' => 'fas fa-file',
+                'route' => 'document.type.index',
+                'permission' => 'manage-document-types',
+                'active_patterns' => 'admin/master/document*',
+            ],
+            [
                 'label' => 'Penduduk',
                 'icon' => 'fas fa-users',
                 'route' => 'residents',
@@ -37,6 +44,13 @@ return [
                 'active_patterns' => 'admin/master/role-permission*',
             ],
         ]
+    ],
+    [
+        'label' => 'Buat Document',
+        'icon' => 'fas fa-file',
+        'route' => 'document.generated.index', // Menggunakan 'url' bukan 'route'
+        'permission' => 'document-create',
+        'active_patterns' => 'admin/document/generate*', // Cocokkan URL path
     ],
     [
         'label' => 'Log Viewer',
