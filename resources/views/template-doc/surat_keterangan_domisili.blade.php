@@ -149,7 +149,7 @@
         <p>Demikian surat keterangan ini kami buat dengan sebenarnya agar yang berkepentingan menjadi tahu adanya.</p>
 
         <div class="signature">
-            <p>Bumiwangi, 12 Juni 2025</p>
+            <p>Bumiwangi, {{ $created_at }}</p>
             <p>{{ $role_user_sign == 'kepala-desa' ? '' : 'An' }} KEPALA DESA BUMIWANGI</p>
             <p>{{ $role_user_sign == 'kelapa-desa' ? '' : $role_user_sign }}</p>
 

@@ -95,7 +95,11 @@
             </div>
             <div>
                 <!-- Before each timeline item corresponds to one icon on the left scale -->
-                <i class="fas fa-{{ $document->approval?->user ? 'check bg-green' : 'clock bg-gray' }}"></i>
+                <i class="fas fa-{{
+                    !$document->approval ? 'clock bg-gray' :
+                    ($document->approval->status === 'approved' ? 'check bg-green' :
+                    ($document->approval->status === 'rejected' ? 'times bg-red' : 'clock bg-gray'))
+                }}"></i>
                 <!-- Timeline item -->
                 <div class="timeline-item">
                     <!-- Time -->
@@ -106,8 +110,10 @@
                     <h3 class="timeline-header"><a class="text-primary" >Admin</a></h3>
                     <!-- Body -->
                     <div class="timeline-body">
-                        @if($document->approval?->user)
+                        @if($document->approval?->status == 'approved')
                             <p>Telah Disetujui oleh {{ $document->approval?->user->name }}</p>
+                        @elseif($document->approval?->status == 'rejected')
+                            <p>Telah Ditolak oleh {{ $document->approval?->user->name }}</p>
                         @else
                         Menunggu Persetujuan ...
                         @endif
@@ -144,7 +150,7 @@
                         @if($document->approval?->sign) Telah Ditandatangani @else Menunggu Tanda Tangan ... @endif
                     </div>
 
-                    @if(Auth::user()->can('action-sign') && $document->approvalExists() && !$document->approval?->sign)
+                    @if(Auth::user()->can('action-sign') && $document->approvalExists() && !$document->approval?->sign && $document->approval?->status == 'approved')
                         <div class="d-flex justify-content-start  py-3 mx-3">
                             <button class="btn btn-success mr-2" id='btn-sign' data-url="{{ route('document.approval.sign', $document) }}">Tandatangani</button>
                             <button class="btn btn-danger" id='btn-reject' data-url="{{ route('document.approval.reject', $document) }}">Reject</button>

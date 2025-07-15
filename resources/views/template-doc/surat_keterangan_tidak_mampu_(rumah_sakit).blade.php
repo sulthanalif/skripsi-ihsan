@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Surat Keterangan Usaha</title>
+    <title>Surat Keterangan Tidak Mampu</title>
     <style>
-        body {
+         body {
             font-family: 'Times New Roman', Times, serif;
             line-height: 1.2;
         }
@@ -80,90 +80,105 @@
         </div>
 
         <div class="title">
-            <p>SURAT KETERANGAN USAHA</p>
+            <p>SURAT KETERANGAN TIDAK MAMPU</p>
         </div>
         <div class="number">
             <p>Nomor : {{ $no_urut }}</p>
         </div>
 
-        <p>Yang bertanda tangan di bawah ini kepala Desa Bumiwangi kecamatan Ciparay Kabupaten Bandung, dengan ini menerangkan :</p>
+        <p>Yang bertanda tangan di bawah ini kepala Desa Bumiwangi kecamatan Ciparay Kabupaten Bandung, dengan ini menerangkan bahwa :</p>
 
         <table class="content-table">
-             <tr>
-                <td style="width: 30%;">1. Nama Lengkap</td>
+            <tr>
+                <td style="width: 30%;">N a m a</td>
                 <td style="width: 5%;">:</td>
                 <td>{{ $user['name'] }}</td>
             </tr>
             <tr>
-                <td>2. No NIK</td>
-                <td>:</td>
-                <td>{{ $user['profile']['nik'] }}</td>
-            </tr>
-            <tr>
-                <td>3. Tempat,Tanggal,Lahir</td>
+                <td>Tempat tgl.lahir</td>
                 <td>:</td>
                 <td>{{ $user['profile']['birth_place'] }}, {{ date('d-m-Y', strtotime($user['profile']['birth_date'])) }}</td>
             </tr>
             <tr>
-                <td>4. Jenis Kelamin</td>
+                <td>NIK</td>
+                <td>:</td>
+                <td>{{ $user['profile']['nik'] }}</td>
+            </tr>
+            <tr>
+                <td>Jenis Kelamin</td>
                 <td>:</td>
                 <td>{{ $user['profile']['gender'] }}</td>
             </tr>
             <tr>
-                <td>5. Kewarganegaraan</td>
-                <td>:</td>
-                <td>{{ $user['profile']['nationality'] }}</td>
-            </tr>
-            <tr>
-                <td>6. Agama</td>
+                <td>Agama</td>
                 <td>:</td>
                 <td>{{ $user['profile']['religion'] }}</td>
             </tr>
             <tr>
-                <td>7. Status</td>
+                <td>Status Perkawinan</td>
                 <td>:</td>
                 <td>{{ $user['profile']['marital_status'] }}</td>
             </tr>
             <tr>
-                <td>8. Pekerjaan</td>
+                <td>Pekerjaan</td>
                 <td>:</td>
                 <td>{{ $user['profile']['occupation'] }}</td>
             </tr>
             <tr>
-                <td>9. Alamat</td>
+                <td>Alamat</td>
                 <td>:</td>
                 <td>{{ $user['profile']['address_ktp'] }}</td>
             </tr>
         </table>
 
-        <p>Adalah benar yang bersangkutan diatas pada saat ini memiliki Perusahaan di Wilayah Desa Bumiwangi Kecamatan Ciparay Kabupaten Bandung yang bergerak dibidang :</p>
+        <p>Adalah tanggungan dari :</p>
 
         <table class="content-table">
             <tr>
-                <td style="width: 30%;">Jenis Usaha</td>
+                <td style="width: 30%;">N a m a</td>
                 <td style="width: 5%;">:</td>
-                <td>{{ $fields['jenis_usaha'] }}</td>
+                <td>{{ $fields['nama_penanggung'] }}</td>
             </tr>
             <tr>
-                <td>Alamat Usaha</td>
+                <td>Tempat tgl.lahir</td>
                 <td>:</td>
-                <td>{{ $fields['alamat_usaha'] }}</td>
+                <td>{{ $fields['tempat_lahir_penanggung'] }}, {{ $fields['tanggal_lahir_penanggung'] }}</td>
             </tr>
             <tr>
-                <td>Lama Usaha</td>
+                <td>NIK</td>
                 <td>:</td>
-                <td>{{ $fields['lama_usaha'] }}</td>
+                <td>{{ $fields['nik_penanggung'] }}</td>
             </tr>
             <tr>
-                <td>Penghasilan Perbulan</td>
+                <td>Jenis Kelamin</td>
                 <td>:</td>
-                <td>Rp.{{ number_format($fields['penghasilan_perbulan'], 0, ',', '.') }}</td>
+                <td>{{ $fields['jenis_kelamin_penanggung'] }}</td>
+            </tr>
+            <tr>
+                <td>Agama</td>
+                <td>:</td>
+                <td>{{ $fields['agama_penanggung'] }}</td>
+            </tr>
+            <tr>
+                <td>Status Perkawinan</td>
+                <td>:</td>
+                <td>{{ $fields['status_perkawinan_penanggung'] }}</td>
+            </tr>
+            <tr>
+                <td>Pekerjaan</td>
+                <td>:</td>
+                <td>{{ $fields['pekerjaan_penanggung'] }}</td>
+            </tr>
+            <tr>
+                <td>Alamat</td>
+                <td>:</td>
+                <td>{{ $fields['alamat_penanggung'] }}</td>
             </tr>
         </table>
 
-        <p>Surat Keterangan di buat Untuk : </p>
-          <p align="center" style="font-weight: bold; font-style: italic;"> Melengkapi Persyaratan Administrasi</p>
-        <p>Demikian surat keterangan ini kami buat dengan sebenarnya,agar yang berkepentingan menjadi tahu dan dapat dipergunakan sebagaimana mestinya.</p>
+        <p>Surat keterangan ini dipergunakan untuk:</p>
+        <p align="center" style="font-weight: bold; font-style: italic;">Melengkapi persyaratan Administrasi Ke Rumah Sakit.</p>
+        <p>Demikian, surat keterangan ini kami buat dengan sebenarnya agar yang berkepentingan menjadi tahu adanya dan dipergunakan sebagaimana mestinya.</p>
 
         <div class="signature">
             <p>Bumiwangi, {{ $created_at }}</p>
