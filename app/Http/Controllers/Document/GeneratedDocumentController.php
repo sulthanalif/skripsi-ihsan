@@ -43,22 +43,22 @@ class GeneratedDocumentController extends Controller
         return view('back-end.document.generate.create', compact('documentType', 'users'));
     }
 
-    public function userApprovals(User $user): \Illuminate\Http\JsonResponse
-    {
-        if ($this->getUserApprovals($user)->isEmpty()) {
-            return response()->json([
-                'status' => false,
-                'data' => [],
-                'message' => 'No approvals found for this user.',
-            ], \Illuminate\Http\JsonResponse::HTTP_NOT_FOUND);
-        }
+    // public function userApprovals(User $user): \Illuminate\Http\JsonResponse
+    // {
+    //     if ($this->getUserApprovals($user)->isEmpty()) {
+    //         return response()->json([
+    //             'status' => false,
+    //             'data' => [],
+    //             'message' => 'No approvals found for this user.',
+    //         ], \Illuminate\Http\JsonResponse::HTTP_NOT_FOUND);
+    //     }
 
-        return response()->json([
-            'status' => true,
-            'data' => $this->getUserApprovals($user),
-            'message' => 'Approvals retrieved successfully.',
-        ], \Illuminate\Http\JsonResponse::HTTP_OK);
-    }
+    //     return response()->json([
+    //         'status' => true,
+    //         'data' => $this->getUserApprovals($user),
+    //         'message' => 'Approvals retrieved successfully.',
+    //     ], \Illuminate\Http\JsonResponse::HTTP_OK);
+    // }
 
     public function edit(DocumentType $documentType, Document $document)
     {
@@ -187,49 +187,7 @@ class GeneratedDocumentController extends Controller
             // 'order' => Document::countDocumentApproval($validatedData['user_id']) + 1,s
         ]);
 
-        // $approval1 = $request->input('approval_1');
-        // $approval2 = $request->input('approval_2');
 
-        // if ($approval1) {
-        //     Approval::create([
-        //         'document_id' => $document->id,
-        //         'user_id' => $request->input('approval_1'),
-        //         'order' => 1,
-        //         'status' => 'pending',
-        //         'note' => null,
-        //     ]);
-
-        //     $user = User::find($request->input('approval_1'));
-
-        //     if ($user) {
-        //         $this->sendEmailApproval($user, $document);
-        //     }
-        // }
-        // if ($approval2) {
-        //     Approval::create([
-        //         'document_id' => $document->id,
-        //         'user_id' => $request->input('approval_2'),
-        //         'order' => 2,
-        //         'status' => 'pending',
-        //         'note' => null,
-        //     ]);
-        // }
-        // $gm = User::whereHas('employee', function ($query) {
-        //     $query->whereHas('position', function ($query) {
-        //         $query->where('name', 'General Manager');
-        //     });
-        // })->first();
-
-        // Approval::create([
-        //     'document_id' => $document->id,
-        //     'user_id' => $gm->id,
-        //     'order' => 3,
-        //     'status' => 'pending',
-        //     'note' => null,
-        // ]);
-
-        // 2. Store Field Values
-        // $kejadianKe = 1;
         if (isset($validatedData['fields'])) {
             foreach ($validatedData['fields'] as $formFieldId => $value) {
                 $fieldModel = FormField::find($formFieldId);
@@ -424,37 +382,20 @@ class GeneratedDocumentController extends Controller
         $pdfData['document_type_name'] = $document->documentType->name;
         $pdfData['creator'] = $document->creator;
         $pdfData['created_at'] = $document->created_at ? Carbon::parse($document->created_at)->locale('id_ID')->translatedFormat('d F Y') : '-';
-        $pdfData['approved_at'] = $document->created_at ? Carbon::parse($document->approvals()->where('order', 3)->where('status', 'approved')->first()?->created_at)->locale('id_ID')->translatedFormat('d F Y') : '-';
-
+        // $pdfData['approved_at'] = $document->created_at ? Carbon::parse($document->approval->where(''))->locale('id_ID')->translatedFormat('d F Y') : '-';
+        $pdfData['berlaku_hingga'] = $document->approval?->sign_at ? Carbon::parse($document->approval->sign_at)->addMonths(4)->locale('id_ID')->translatedFormat('d F Y') : '-';
         // Informasi pengguna
         $pdfData['user'] = $document->user;
-        $pdfData['userB'] = $document->approvals()->where('order', 1)->first() ? $document->approvals()->where('order', 1)->first()?->user : $document->approvals()->where('order', 1)->first()?->user;
-        $pdfData['userC'] = $document->approvals()->where('order', 2)->first()?->user;
-        $pdfData['userD'] = $document->approvals()->where('order', 3)->first()?->user;
-
+        $pdfData['user_sign'] = $document->approval?->signBy ?? [];
+        $roleName = $document->approval?->signBy?->roles->first()->name ?? '';
+        $pdfData['role_user_sign'] = ucwords(str_replace('-', ' ', $roleName));
+        $pdfData['sign_image'] = $document->approval?->qr_code_image ?? null;
         $pdfData['no_urut'] = $document->number;
-        $pdfData['nomer_kejadian'] = 1;
 
-        // Mencari atasan (head)
-        $head_user = $this->getHeaderEmployee($document->user);
-        $pdfData['head_user'] = $document->approvals()->where('order', 1)->first()?->user->name;
+
 
         // Menyiapkan nilai-nilai field dinamis
         $pdfData['fields'] = [];
-        // Pre-load image data untuk efisiensi
-        $checkImgData = null;
-        $uncheckImgData = null;
-
-        if (file_exists(public_path('assets/img/check.png'))) {
-            $checkImgData = 'data:image/png;base64,' . base64_encode(file_get_contents(public_path('assets/img/check.png')));
-        } else {
-            Log::warning("File check.png tidak ditemukan di public/assets/img/");
-        }
-        if (file_exists(public_path('assets/img/uncheck.png'))) {
-            $uncheckImgData = 'data:image/png;base64,' . base64_encode(file_get_contents(public_path('assets/img/uncheck.png')));
-        } else {
-            Log::warning("File uncheck.png tidak ditemukan di public/assets/img/");
-        }
 
         foreach ($document->fieldValues as $fieldValue) {
             $formField = $fieldValue->formField;
@@ -462,14 +403,6 @@ class GeneratedDocumentController extends Controller
 
             $fieldName = $formField->field_name; // Ini adalah nama placeholder yang akan digunakan sebagai key
             $value = $fieldValue->value;
-
-            if ($fieldName === 'jenis_kejadian') {
-                $pdfData['nomer_kejadian'] = (new Document)->countJenisBeritaAcara($document->user_id, $value);
-            }
-
-            if ($fieldName === 'kejadian_ke') {
-                $pdfData['fields'][$fieldName] = $pdfData['nomer_kejadian'];
-            }
 
             if ($fieldName === 'konsekuensi' && $formField->field_type === 'select') {
                 $selectedValue = $value;

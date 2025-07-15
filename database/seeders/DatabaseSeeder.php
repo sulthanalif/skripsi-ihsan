@@ -16,6 +16,10 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $roleSuperAdmin = Role::create(['name' => 'super-admin']);
+        $roleAdmin = Role::create(['name' => 'admin']);
+        $roleKepalaDesa = Role::create(['name' => 'kepala-desa']);
+        $roleSekretaris = Role::create(['name' => 'sekretaris']);
+        $rolePerangkatDesa = Role::create(['name' => 'perangkat-desa']);
         $roleWarga = Role::create(['name' => 'warga']);
 
 
@@ -45,6 +49,15 @@ class DatabaseSeeder extends Seeder
             'document-type',
             'document-field',
             'document-create',
+
+            'document-list',
+            'document-list-all',
+
+            // 'approve-document',
+            'document-approval',
+
+            'action-approve',
+            'action-sign',
 
         ];
 

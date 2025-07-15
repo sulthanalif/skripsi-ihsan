@@ -17,21 +17,54 @@ class DocumentSeeder extends Seeder
 
         $suratKeteranganDomisili = $documentType->create([
             'name' => 'Surat Keterangan Domisili',
+            'number' => '400.8',
             'description' => 'Diperuntukan untuk keterangan domisili',
             'status' => true,
         ]);
 
         $suratKeteranganUsaha = $documentType->create([
             'name' => 'Surat Keterangan Usaha',
+            'number' => '400.4',
             'description' => 'Diperuntukan untuk keterangan usaha',
             'status' => true,
         ]);
 
         $suratKeteranganTidakMampu = $documentType->create([
-            'name' => 'Surat Keterangan Tidak Mampu',
+            'name' => 'Surat Keterangan Tidak Mampu (Rumah Sakit)',
+            'number' => '400.7.3.6',
             'description' => 'Diperuntukan untuk keterangan tidak mampu',
             'status' => true,
         ]);
+
+        $suratKeteranganTidakMampu = $documentType->create([
+            'name' => 'Surat Keterangan Tidak Mampu (Sekolah)',
+            'number' => '400.3.3',
+            'description' => 'Diperuntukan untuk keterangan tidak mampu',
+            'status' => true,
+        ]);
+
+        $fields_suratKeteranganDomisili = [
+            [
+                'field_name' => 'keterangan_dari',
+                'field_label' => 'Keterangan Dari',
+                'field_type' => 'text',
+                'field_options' => null,
+                'field_checkbox_options' => null,
+                'is_required' => 1,
+                'order' => 1,
+                'hint' => null,
+            ],
+            [
+                'field_name' => 'alamat_domisili',
+                'field_label' => 'Alamat Domisili',
+                'field_type' => 'textarea',
+                'field_options' => null,
+                'field_checkbox_options' => null,
+                'is_required' => 1,
+                'order' => 2,
+                'hint' => null,
+            ]
+        ];
 
 
         $fields_suratKeteranganUsaha = [
@@ -77,6 +110,8 @@ class DocumentSeeder extends Seeder
             ],
         ];
 
+
+        $suratKeteranganDomisili->formFields()->createMany($fields_suratKeteranganDomisili);
         $suratKeteranganUsaha->formFields()->createMany($fields_suratKeteranganUsaha);
     }
 }

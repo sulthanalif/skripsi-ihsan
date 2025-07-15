@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -58,38 +59,18 @@ class Document extends Model
         return null;
     }
 
-    public function getLastUserApproval()
-    {
-        return $this->approvals()->where('status', '!=', 'approved')->exists()
-            ? $this->approvals()->where('status', '!=', 'approved')->orderBy('order', 'asc')->first()
-            : $this->approvals()->orderBy('order', 'desc')->first();
-    }
+    // public function getLastUserApproval()
+    // {
+    //     return $this->approvals()->where('status', '!=', 'approved')->exists()
+    //         ? $this->approvals()->where('status', '!=', 'approved')->orderBy('order', 'asc')->first()
+    //         : $this->approvals()->orderBy('order', 'desc')->first();
+    // }
 
     public function approvalExists(): bool
     {
-        return $this->approvals()->where('status', '=', ['approved', 'rejected'])->exists();
+        return $this->approval && $this->approval->where('status', '=', ['approved', 'rejected'])->exists();
     }
 
-    public function countDocumentApproval($user_id)
-    {
-        return $this->where('user_id', $user_id)->whereDoesntHave('approvals', function ($query) {
-            $query->where('status', '!=', 'approved');
-        })->whereHas('approvals')->count();
-    }
-
-    public function countJenisBeritaAcara($user_id, $jenis_kejadian)
-    {
-        return $this->where('user_id', $user_id)
-            ->whereHas('documentType', function ($query) {
-                $query->where('name', 'like', '%Berita Acara%');
-            })
-            ->whereHas('fieldValues', function ($query) use ($jenis_kejadian) {
-                $query->whereHas('formField', function ($q) {
-                    $q->where('field_name', 'jenis_kejadian');
-                })->where('value', $jenis_kejadian);
-            })
-            ->count();
-    }
 
     public function user(): BelongsTo
     {
@@ -102,8 +83,8 @@ class Document extends Model
         return $this->belongsTo(User::class, 'created_by', 'id');
     }
 
-    public function approvals(): HasMany
+    public function approval(): HasOne
     {
-        return $this->hasMany(Approval::class, 'document_id', 'id');
+        return $this->hasOne(Approval::class, 'document_id', 'id');
     }
 }

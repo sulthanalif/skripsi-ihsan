@@ -6,42 +6,42 @@ return [
         'icon' => 'fas fa-tachometer-alt',
         'route' => 'dashboard',
         'permission' => 'dashboard',
-        'active_patterns' => 'admin/dashboard*', // String tunggal
+        'active_patterns' => 'dashboard*', // String tunggal
     ],
     [
         'label' => 'Master Data',
         'icon' => 'fas fa-database',
         'route' => 'master.index',
         'permission' => 'master-data',
-        'active_patterns' => ['admin/master/*'],
+        'active_patterns' => ['master/*'],
         'children' => [
             [
                 'label' => 'Document Type',
                 'icon' => 'fas fa-file',
                 'route' => 'document.type.index',
                 'permission' => 'manage-document-types',
-                'active_patterns' => 'admin/master/document*',
+                'active_patterns' => 'master/document*',
             ],
             [
                 'label' => 'Penduduk',
                 'icon' => 'fas fa-users',
                 'route' => 'residents',
                 'permission' => 'manage-residents',
-                'active_patterns' => 'admin/master/resident*',
+                'active_patterns' => 'master/resident*',
             ],
             [
                 'label' => 'Users',
                 'icon' => 'fas fa-users',
                 'route' => 'users',
                 'permission' => 'manage-users',
-                'active_patterns' => 'admin/master/users*',
+                'active_patterns' => 'master/users*',
             ],
             [
                 'label' => 'Role & Permission',
                 'icon' => 'fas fa-user-tag',
                 'route' => 'role-permission.index',
                 'permission' => 'manage-roles',
-                'active_patterns' => 'admin/master/role-permission*',
+                'active_patterns' => 'master/role-permission*',
             ],
         ]
     ],
@@ -50,16 +50,16 @@ return [
         'icon' => 'fas fa-file',
         'route' => 'document.generated.index', // Menggunakan 'url' bukan 'route'
         'permission' => 'document-create',
-        'active_patterns' => 'admin/document/generate*', // Cocokkan URL path
+        'active_patterns' => 'document/generate*', // Cocokkan URL path
     ],
     [
-        'label' => 'Log Viewer',
-        'icon' => 'fas fa-flag',
-        'url' => '/log-viewer', // Menggunakan 'url' bukan 'route'
-        'permission' => 'log-viewer',
-        'target' => '_blank', // Akan membuka di tab baru
-        'active_patterns' => 'log-viewer*', // Cocokkan URL path
+        'label' => 'Document',
+        'icon' => 'fas fa-file',
+        'route' => 'document.index', // Menggunakan 'url' bukan 'route'
+        'permission' => 'document-list',
+        'active_patterns' => 'documents*', // Cocokkan URL path
     ],
+
 
     // tambahkan item lain sesuai kebutuhan…
 ];

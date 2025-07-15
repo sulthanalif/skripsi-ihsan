@@ -26,4 +26,16 @@ class DocumentController extends Controller
 
         return view('back-end.document.index', compact('documents', 'types'));
     }
+
+    public function approve(Document $document)
+    {
+        $document->approval()->create([
+            'user_id' => Auth::id(),
+            'status' => 'approved',
+            'note' => null,
+            'sign' => null,
+        ]);
+
+        return back()->with('success', 'Document has been approved');
+    }
 }

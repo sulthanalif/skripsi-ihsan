@@ -164,11 +164,11 @@
 <script>
     @php
         // Get the user_id for approval 1 and 2 from the document's approvals relationship
-        $approval1User = $document->approvals->firstWhere('order', 1);
-        $approval2User = $document->approvals->firstWhere('order', 2);
+        $approval1User = $document->approval?->approvals->firstWhere('order', 1);
+        $approval2User = $document->approval?->approvals->firstWhere('order', 2);
 
-        $currentApproval1UserId = $approval1User ? $approval1User->user_id : null;
-        $currentApproval2UserId = $approval2User ? $approval2User->user_id : null;
+        $currentApproval1UserId = $approval1User ? $document->approval?->user_id : null;
+        $currentApproval2UserId = $approval2User ? $document->approval?->user_id : null;
     @endphp
     $(document).ready(function() {
         // Store current approval IDs from PHP, fallback to empty string if not set

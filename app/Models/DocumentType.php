@@ -17,6 +17,7 @@ class DocumentType extends Model
     protected $fillable = [
         'name',
         'description',
+        'number',
         'template_file_path',
         'status',
     ];

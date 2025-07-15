@@ -4,9 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ApprovalController;
 use App\Http\Controllers\ResidentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RolePermissionController;
+use App\Http\Controllers\Document\DocumentController;
 use App\Http\Controllers\Document\DocumentTypeController;
 use App\Http\Controllers\Document\DocumentFieldController;
 use App\Http\Controllers\Document\GeneratedDocumentController;
@@ -15,6 +17,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/coba-template', function () {
+    return view('template-doc.surat_keterangan_usaha');
+});
 // Route::resource('dynamic-form', App\Http\Controllers\DynamicFormController::class);
 
 
@@ -23,7 +28,7 @@ Route::get('/register', [AuthController::class, 'registerPage'])->name('register
 Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
 Route::post('/register', [AuthController::class, 'register'])->name('auth.register');
 
-Route::middleware('auth')->prefix('admin')->group(function () {
+Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
@@ -87,6 +92,8 @@ Route::middleware('auth')->prefix('admin')->group(function () {
         });
     });
 
+    Route::get('/documents', [DocumentController::class, 'index'])->middleware('can:document-list')->name('document.index');
+
     Route::get('/document/generate', [GeneratedDocumentController::class, 'index'])->middleware('can:document-create')->name('document.generated.index');
     Route::get('/document/generate/{document_type}', [GeneratedDocumentController::class, 'create'])->middleware('can:document-create')->name('document.generated.create');
     Route::get('/document/generate/getUserApprovals/{user}', [GeneratedDocumentController::class, 'userApprovals'])->middleware('can:document-create')->name('document.generated.getUserApprovals');
@@ -95,5 +102,11 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::put('/document/generate/{document_type}/{document}', [GeneratedDocumentController::class, 'update'])->middleware('can:document-create')->name('document.generated.update');
 
     Route::get('/document/generate/download/{document}', [GeneratedDocumentController::class, 'generate'])->middleware('can:document-create')->name('document.generated.download');
+
+    Route::get('/document/approval/{document}', [ApprovalController::class, 'index'])->middleware('can:document-approval')->name('document.approval.index');
+    Route::post('document/approval/{document}/approve', [ApprovalController::class, 'approve'])->middleware('can:action-approve')->name('document.approval.approve');
+    Route::post('document/approval/{document}/reject', [ApprovalController::class, 'reject'])->middleware('can:action-approve')->name('document.approval.reject');
+    Route::post('document/approval/{document}/sign', [ApprovalController::class, 'sign'])->middleware('can:action-sign')->name('document.approval.sign');
+
 });
 

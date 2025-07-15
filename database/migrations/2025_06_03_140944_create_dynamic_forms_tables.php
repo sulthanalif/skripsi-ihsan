@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('document_types', function (Blueprint $table) {
             $table->id();
+            $table->string('number')->unique();
             $table->string('name')->unique();
             $table->text('description')->nullable();
             $table->boolean('status')->default(true);
