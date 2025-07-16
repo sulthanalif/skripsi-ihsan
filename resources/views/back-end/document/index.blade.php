@@ -83,7 +83,11 @@
                             </td>
                             <td>{{ $document->created_at->format('d M Y, H:i') }}</td>
                             <td class="text-center" style="white-space:nowrap">
+                                @if (auth()->user()->roles->first()->name != 'warga')
                                 <a href="{{ route('document.generated.download', $document->id) }}" class="btn btn-sm btn-info" target="_blank">Lihat</a>
+                                @elseif(auth()->user()->roles->first()->name == 'warga' && $document->approvalExists() && $document->approval->sign)
+                                <a href="{{ route('document.generated.download', $document->id) }}" class="btn btn-sm btn-info" target="_blank">Lihat</a>
+                                @endif
                                 {{-- @if (!$document->approvalExists())
                                     @if ($document->user->id == auth()->user()->id || $document->creator->id == auth()->user()->id)
                                         <a href="{{ route('document.generated.edit', ['document_type' => $document->documentType->id, 'document' => $document->id]) }}" class="btn btn-sm btn-warning">Edit</a>

@@ -8,6 +8,13 @@
 
     </ul>
     <ul class="navbar-nav ml-auto">
+        @if (config('switchuser.enabled'))
+            <li class="nav-item w-full">
+                <select class="form-control"  data-selectjs="true" id="user-select" data-placeholder="------ Pilih User ------">
+                    <option selected value="">------ Pilih User ------</option>
+                </select>
+            </li>
+        @endif
         <li class="nav-item">
             <a class="nav-link" data-widget="fullscreen" href="#" role="button">
                 <i class="fas fa-expand-arrows-alt"></i>

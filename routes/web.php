@@ -7,6 +7,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ApprovalController;
 use App\Http\Controllers\ResidentController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\SwitchUserController;
 use App\Http\Controllers\RolePermissionController;
 use App\Http\Controllers\Document\DocumentController;
 use App\Http\Controllers\Document\DocumentTypeController;
@@ -17,10 +18,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/coba-template', function () {
-    return view('template-doc.surat_keterangan_usaha');
-});
+// Route::get('/coba-template', function () {
+//     return view('template-doc.surat_keterangan_usaha');
+// });
 // Route::resource('dynamic-form', App\Http\Controllers\DynamicFormController::class);
+
+if (config('switchuser.enabled')) {
+    Route::get('/users/get', [SwitchUserController::class, 'getUsers'])->middleware('auth')->name('users.get');
+    Route::post('/users/switch', [SwitchUserController::class, 'switch'])->middleware('auth')->name('users.switch');
+}
 
 
 Route::get('/login', [AuthController::class, 'loginPage'])->name('login');

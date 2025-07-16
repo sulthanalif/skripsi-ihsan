@@ -29,33 +29,34 @@
             <form action="{{ route('document.generated.store', $documentType->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="card-body">
-                    {{-- Static field for Document Title (Optional, or can be part of FormField) --}}
-                    {{-- <div class="form-group">
-                        <label for="document_title">Document Title <span class="text-danger">*</span></label>
-                        <input type="text" name="document_title" id="document_title" class="form-control @error('document_title') is-invalid @enderror" value="{{ old('document_title') }}" required>
-                        @error('document_title')
+                    <div class="form-group">
+                        <label for="sebagai">Sebagai <span class="text-danger">*</span></label>
+                            {{-- {{auth()->user()->roles->first()}} --}}
+
+                            <select name="sebagai" id="sebagai" class="form-control sebagai @error('sebagai') is-invalid @enderror" data-selectjs="true" data-placeholder="Pilih Sebagai..." required>
+                                <option value="" selected disabled>Pilih Sebagai...</option>
+                                <option value="pengaju" >Pengaju</option>
+                                <option value="wali" >Wali</option>
+                            </select>
+
+                        @error('sebagai')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
-                    </div> --}}
-                    <div class="form-group">
-                        <label for="user_id">Atas Nama <span class="text-danger">*</span></label>
-                            {{-- {{auth()->user()->roles->first()}} --}}
-                        @if(auth()->user()->roles->first()->name == 'warga')
-                            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                            <input type="text" class="form-control" value="Saya ({{Auth::user()->profile->nik ?? '' .' - '.  Auth::user()->name }})" readonly>
-                        @else
-                            <select name="user_id" id="user_id" class="form-control user_id @error('user_id') is-invalid @enderror" data-selectjs="true" data-placeholder="Pilih Warga" required>
-                                <option value="" selected disabled>Pilih Warga</option>
-                                <option value="{{ Auth::user()->id }}" selected>Saya ({{Auth::user()->profile->nik ?? '' .' - '.  Auth::user()->name }})</option>
-                                @foreach ($users as $e)
-                                    <option  @selected(old('user_id') == $e->id) value="{{ $e->id }}">{{$e->profile->nik .' - '. $e->name }}</option>
-                                @endforeach
-                            </select>
-                        @endif
+                    </div>
+                    <div id="user_id_pengaju" class="form-group" style="display: none;">>
+
+                    </div>
+
+                    <div class="form-group" id="user_id_wali" style="display: none;">
+                        <label for="user_id">Pilih Pengaju <span class="text-danger">*</span></label>
+                        <select name="user_id" id="user_id" class="form-control @error('user_id') is-invalid @enderror" data-selectjs="true" data-placeholder="Pilih Pengaju" required>
+                            {{-- Add options for approval 1 --}}
+                        </select>
                         @error('user_id')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
+
 
                     <hr>
 
@@ -139,56 +140,53 @@
 <script>
     $(document).ready(function() {
         // Menggunakan selector ID yang lebih spesifik dan mengambil data-url dari option yang dipilih
-        $('#user_id').on('change', function() {
-            var selectedOption = $(this).find('option:selected');
-            var approvalsDiv = $('#approvals');
+        $('#sebagai').on('change', function() {
+            const selectedValue = $(this).val();
+            var divUserIdPengaju = $('#user_id_pengaju');
+            divUserIdPengaju.empty();
+            const users = @json($users);
+            const authUserId = {{ auth()->id() }};
+            const authUserName = '{{ auth()->user()->profile?->nik ?? "" }} - {{ auth()->user()->name }}';
 
-            var url = selectedOption.data('url');
-            var approvalAList = $('#approval_1');
-            approvalAList.empty();
-            approvalAList.append('<option value="" selected disabled>Pilih Approval 1</option>');
-            var approvalBList = $('#approval_2');
-            approvalBList.empty();
-            approvalBList.append('<option value="" selected disabled>Pilih Approval 1</option>');
+            var userList = $('#user_id');
+            var userIdWali = $('#user_id_wali');
+            userList.empty();
+            userList.append('<option value="" selected disabled>Pilih Pengaju</option>');
 
-            if (url) {
-                $.ajax({
-                    url: url,
-                    method: 'GET',
-                    success: function(response) {
-                        if (response.status) {
-                            var employees = response.data; // Ini seharusnya array objek user
-                            // console.log('Fetched employees for approval_1:', employees); // Log user yang diambil
+            if (selectedValue === 'pengaju') {
+                userIdWali.css('display', 'none');
+                divUserIdPengaju.css('display', 'block');
+                userIdWali.empty();
+                divUserIdPengaju.append(`
+                    <input type="hidden" name="user_id" value="${authUserId}">
+                    <input type="text" class="form-control" value="${authUserName}" readonly>
+                `);
+            } else if (selectedValue === 'wali') {
+                userIdWali.css('display', 'block');
+                divUserIdPengaju.css('display', 'none');
+                divUserIdPengaju.empty();
+                if (users && Array.isArray(users) && users.length > 0) {
 
-                            if (employees && Array.isArray(employees) && employees.length > 0) {
-                                approvalsDiv.css('display', 'block');
-                                employees.forEach(employee => {
-                                    // Pastikan user memiliki id dan name
-                                    if(employee && typeof employee.user.id !== 'undefined' && typeof employee.user.name !== 'undefined') {
-                                        approvalAList.append(`<option value="${employee.user.id}">${employee.user.name} - ${employee.position.name}</option>`);
-                                        approvalBList.append(`<option value="${employee.user.id}">${employee.user.name} - ${employee.position.name}</option>`);
-                                    } else {
-                                        console.warn('Invalid user object received:', employee.user);
-                                    }
-                                });
-                            } else {
-                                console.log('No users found for approval_1 or data is empty/invalid.');
-                            }
-                            // Beritahu plugin select (misalnya Select2) untuk memperbarui dirinya sendiri
-                            approvalAList.trigger('change');
-                            approvalBList.trigger('change');
-                        } else { // response.status bernilai false
-                            console.error('Server merespons dengan error untuk approval_1:', response.message);
+                    users.forEach(user => {
+                        if(user && typeof user.id !== 'undefined' && typeof user.name !== 'undefined' && user.id !== authUserId) {
+                            userList.append(`<option value="${user.id}">${user.profile ? user.profile.nik + ' - ' : ''}${user.name}</option>`);
+                        } else if(user && typeof user.id === 'undefined' || typeof user.name === 'undefined') {
+                            console.warn('Invalid user object received:', user);
                         }
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('Error:', error);
-                    }
-                });
+                    });
+                } else {
+                    console.log('No users found or data is empty/invalid.');
+                }
+
+                // Trigger change event to update select plugin
+                userList.find('select').trigger('change');
             } else {
-                console.error('URL not found');
+                // userList.empty();
             }
+
+
         });
+
     })
 </script>
 @endpush

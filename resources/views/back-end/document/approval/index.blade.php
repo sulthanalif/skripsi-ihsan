@@ -91,7 +91,11 @@
             <!-- Timeline time label -->
             <div class="time-label">
                 <span class="bg-green btn mr-4">Tanggal Pengajuan: {{ \Carbon\Carbon::parse($document->created_at)->format('d M Y') }}</span>
+                @if(auth()->user()->roles->first()->name != 'warga')
                 <span class="btn btn-primary"><a href="{{ route('document.generated.download', $document->id) }}"target="_blank">Lihat Document</a></span>
+                @elseif(auth()->user()->roles->first()->name == 'warga' && $document->approvalExists() && $document->approval->sign)
+                <span class="btn btn-primary"><a href="{{ route('document.generated.download', $document->id) }}"target="_blank">Lihat Document</a></span>
+                @endif
             </div>
             <div>
                 <!-- Before each timeline item corresponds to one icon on the left scale -->
