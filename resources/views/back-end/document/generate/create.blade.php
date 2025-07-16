@@ -39,13 +39,19 @@
                     </div> --}}
                     <div class="form-group">
                         <label for="user_id">Atas Nama <span class="text-danger">*</span></label>
-                        <select name="user_id" id="user_id" class="form-control user_id @error('user_id') is-invalid @enderror" data-selectjs="true" data-placeholder="Pilih Warga" required>
-                            <option value="" selected disabled>Pilih Warga</option>
-                            {{-- <option value="{{ Auth::user()->id }}" data-url="{{ route('document.generated.getUserApprovals', Auth::user()->id) }}">Saya ({{ Auth::user()->name }})</option> --}}
-                            @foreach ($users as $e)
-                                <option data-url="{{ route('document.generated.getUserApprovals', $e->id) }}" @selected(old('user_id') == $e->id) value="{{ $e->id }}">{{$e->profile->nik .' - '. $e->name }}</option>
-                            @endforeach
-                        </select>
+                            {{-- {{auth()->user()->roles->first()}} --}}
+                        @if(auth()->user()->roles->first()->name == 'warga')
+                            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                            <input type="text" class="form-control" value="Saya ({{Auth::user()->profile->nik ?? '' .' - '.  Auth::user()->name }})" readonly>
+                        @else
+                            <select name="user_id" id="user_id" class="form-control user_id @error('user_id') is-invalid @enderror" data-selectjs="true" data-placeholder="Pilih Warga" required>
+                                <option value="" selected disabled>Pilih Warga</option>
+                                <option value="{{ Auth::user()->id }}" selected>Saya ({{Auth::user()->profile->nik ?? '' .' - '.  Auth::user()->name }})</option>
+                                @foreach ($users as $e)
+                                    <option  @selected(old('user_id') == $e->id) value="{{ $e->id }}">{{$e->profile->nik .' - '. $e->name }}</option>
+                                @endforeach
+                            </select>
+                        @endif
                         @error('user_id')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror

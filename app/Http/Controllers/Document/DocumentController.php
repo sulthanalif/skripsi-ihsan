@@ -16,7 +16,7 @@ class DocumentController extends Controller
                 $query->where(function ($query) {
                     $query->where('created_by', auth()->user()->id)
                         ->orWhere('user_id', auth()->user()->id)
-                        ->orWhereHas('approvals', function ($query) {
+                        ->orWhereHas('approval', function ($query) {
                             $query->where('user_id', auth()->user()->id);
                         });
                 });

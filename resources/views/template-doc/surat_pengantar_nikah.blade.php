@@ -17,7 +17,7 @@
             text-align: center;
             border-bottom: 4px double black;
             padding-bottom: 10px;
-            margin-bottom: 20px;
+            /* margin-bottom: 5px; */
         }
         .kop-surat .logo {
             float: left;
@@ -62,7 +62,7 @@
             width: 30%;
             float: right;
             text-align: center;
-            margin-top: 10px;
+            /* margin-top: 5px; */
         }
         .clear {
             clear: both;
@@ -72,7 +72,7 @@
 <body>
     <div class="container">
         <div class="kop-surat">
-            <img src="logo-kabupaten.png" alt="Logo Kabupaten" class="logo">
+            <img src="logo-doc.png" alt="Logo Kabupaten" class="logo">
             <h1>PEMERINTAH KABUPATEN BANDUNG</h1>
             <h1>KECAMATAN CIPARAY</h1>
             <h2>KEPALA DESA BUMIWANGI</h2>
@@ -83,7 +83,7 @@
             <p>PENGANTAR NIKAH</p>
         </div>
         <div class="number">
-            <p>Nomor : 474.2/80 / Pemdes / V /2024</p>
+            <p>Nomor : {{ $no_urut }}</p>
         </div>
 
         <p>Yang bertandatangan di bawah ini menjelaskan dengan sesungguhnya bahwa:</p>
@@ -132,12 +132,14 @@
             <tr>
                 <td>9. Status Perkawinan</td>
                 <td>:</td>
-                <td>D U D A ( Cerai Hidup )</td>
+                <td>
+                    {{ $fields['status_pernikahan'] }}
+                </td>
             </tr>
             <tr>
                 <td>10. Nama istri/suami terdahulu</td>
                 <td>:</td>
-                <td>NENY BONASITA</td>
+                <td>{{ $fields['nama_istri_suami_terdahulu'] }}</td>
             </tr>
         </table>
 
@@ -146,37 +148,37 @@
             <tr>
                 <td style="width: 35%;">Nama Lengkap dan alias</td>
                 <td style="width: 5%;">:</td>
-                <td>H AMAN THOHIR Alm</td>
+                <td>{{ $fields['nama_lengkap_dan_alias_ayah'] }}</td>
             </tr>
              <tr>
                 <td>Nomor Induk Kependudukan (NIK)</td>
                 <td>:</td>
-                <td>-</td>
+                <td>{{ $fields['nik_ayah'] }}</td>
             </tr>
              <tr>
                 <td>Tempat dan tanggal lahir</td>
                 <td>:</td>
-                <td>-</td>
+                <td>{{ $fields['tempat_lahir_ayah'] }}, {{ $fields['tanggal_lahir_ayah'] }}</td>
             </tr>
              <tr>
                 <td>Kewarganegaraan</td>
                 <td>:</td>
-                <td>Indonesia</td>
+                <td>{{ $fields['kewarganegaraan_ayah'] }}</td>
             </tr>
              <tr>
                 <td>Agama</td>
                 <td>:</td>
-                <td>Islam</td>
+                <td>{{ $fields['agama_ayah'] }}</td>
             </tr>
              <tr>
                 <td>Pekerjaan</td>
                 <td>:</td>
-                <td>-</td>
+                <td>{{ $fields['pekerjaan_ayah'] }}</td>
             </tr>
              <tr>
                 <td>Alamat</td>
                 <td>:</td>
-                <td>-</td>
+                <td>{{ $fields['alamat_ayah'] }}</td>
             </tr>
         </table>
 
@@ -185,47 +187,54 @@
             <tr>
                 <td style="width: 35%;">Nama Lengkap dan alias</td>
                 <td style="width: 5%;">:</td>
-                <td>AI FATIMAH Alm</td>
+                <td>{{ $fields['nama_lengkap_dan_alias_ibu'] }}</td>
             </tr>
              <tr>
                 <td>Nomor Induk Kependudukan (NIK)</td>
                 <td>:</td>
-                <td>-</td>
+                <td>{{ $fields['nik_ibu'] }}</td>
             </tr>
              <tr>
                 <td>Tempat dan tanggal lahir</td>
                 <td>:</td>
-                <td>-</td>
+                <td>{{ $fields['tempat_lahir_ibu'] }}, {{ $fields['tanggal_lahir_ibu'] }}</td>
             </tr>
              <tr>
                 <td>Kewarganegaraan</td>
                 <td>:</td>
-                <td>Indonesia</td>
+                <td>{{ $fields['kewarganegaraan_ibu'] }}</td>
             </tr>
              <tr>
                 <td>Agama</td>
                 <td>:</td>
-                <td>Islam</td>
+                <td>{{ $fields['agama_ibu'] }}</td>
             </tr>
              <tr>
                 <td>Pekerjaan</td>
                 <td>:</td>
-                <td>-</td>
+                <td>{{ $fields['pekerjaan_ibu'] }}</td>
             </tr>
              <tr>
                 <td>Alamat</td>
                 <td>:</td>
-                <td>-</td>
+                <td>{{ $fields['alamat_ibu'] }}</td>
             </tr>
         </table>
 
         <p>Demikian, surat pengantar ini dibuat dengan mengingat sumpah jabatan dan untuk dipergunakan sebagaimana mestinya.</p>
 
         <div class="signature">
-            <p>Bandung, 17 Mei 2024</p>
-            <p>An Kepala Desa Bumiwangi</p>
-            <br><br><br><br>
-            <p><strong>H LUKMANUL HAKIM</strong></p>
+            <p>Bumiwangi, {{ $created_at }}</p>
+            <p>{{ $role_user_sign == 'Kepala Desa' ? '' : 'An' }} KEPALA DESA BUMIWANGI</p>
+            <p>{{ $role_user_sign == 'Kepala Desa' ? '' : $role_user_sign }}</p>
+
+            @if($sign_image)
+            <div>
+                <img  src="data:image/png;base64,{{ $sign_image }}" style="width: 100px" />
+            </div>
+            @endif
+
+            <p><strong>{{ $user_sign ? $user_sign['name'] : '' }}</strong></p>
         </div>
         <div class="clear"></div>
     </div>

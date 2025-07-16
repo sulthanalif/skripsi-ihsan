@@ -69,6 +69,9 @@ class DatabaseSeeder extends Seeder
 
         $permissionWarga = [
             'dashboard',
+            'document-list',
+            'document-approval',
+            'document-create',
         ];
 
         $roleWarga->givePermissionTo($permissionWarga);

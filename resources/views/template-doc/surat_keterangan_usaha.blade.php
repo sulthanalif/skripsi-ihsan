@@ -167,8 +167,8 @@
 
         <div class="signature">
             <p>Bumiwangi, {{ $created_at }}</p>
-            <p>{{ $role_user_sign == 'kepala-desa' ? '' : 'An' }} KEPALA DESA BUMIWANGI</p>
-            <p>{{ $role_user_sign == 'kelapa-desa' ? '' : $role_user_sign }}</p>
+            <p>{{ $role_user_sign == 'Kepala Desa' ? '' : 'An' }} KEPALA DESA BUMIWANGI</p>
+            <p>{{ $role_user_sign == 'Kepala Desa' ? '' : $role_user_sign }}</p>
 
             @if($sign_image)
             <div>
