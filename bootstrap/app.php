@@ -14,6 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'DNS1D' => Milon\Barcode\Facades\DNS1DFacade::class,
             'DNS2D' => Milon\Barcode\Facades\DNS2DFacade::class,
+            'Image' => Intervention\Image\Facades\Image::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
