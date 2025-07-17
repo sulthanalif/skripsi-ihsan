@@ -70,26 +70,8 @@
           <ul>
             <li><a href="#hero" class="active">Home</a></li>
             <li><a href="#about">Tentang</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#portfolio">Portfolio</a></li>
-            <li><a href="#team">Team</a></li>
-            <li class="dropdown"><a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-              <ul>
-                <li><a href="#">Dropdown 1</a></li>
-                <li class="dropdown"><a href="#"><span>Deep Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-                  <ul>
-                    <li><a href="#">Deep Dropdown 1</a></li>
-                    <li><a href="#">Deep Dropdown 2</a></li>
-                    <li><a href="#">Deep Dropdown 3</a></li>
-                    <li><a href="#">Deep Dropdown 4</a></li>
-                    <li><a href="#">Deep Dropdown 5</a></li>
-                  </ul>
-                </li>
-                <li><a href="#">Dropdown 2</a></li>
-                <li><a href="#">Dropdown 3</a></li>
-                <li><a href="#">Dropdown 4</a></li>
-              </ul>
-            </li>
+            <li><a href="#visi-misi">Visi & Misi</a></li>           
+            <li><a href="#struktur-organisasi">Struktur Organisasi</a></li>
             <li><a href="#contact">Contact</a></li>
             <li><a href="{{ route('login') }}">Login</a></li>
           </ul>
@@ -126,51 +108,6 @@
 
     </section><!-- /Hero Section -->
 
-    <!-- Featured Services Section -->
-    {{-- <section id="featured-services" class="featured-services section">
-
-      <div class="container">
-
-        <div class="row gy-4">
-
-          <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="100">
-            <div class="service-item position-relative">
-              <div class="icon"><i class="bi bi-activity icon"></i></div>
-              <h4><a href="" class="stretched-link">Lorem Ipsum</a></h4>
-              <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p>
-            </div>
-          </div><!-- End Service Item -->
-
-          <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="200">
-            <div class="service-item position-relative">
-              <div class="icon"><i class="bi bi-bounding-box-circles icon"></i></div>
-              <h4><a href="" class="stretched-link">Sed ut perspici</a></h4>
-              <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</p>
-            </div>
-          </div><!-- End Service Item -->
-
-          <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="300">
-            <div class="service-item position-relative">
-              <div class="icon"><i class="bi bi-calendar4-week icon"></i></div>
-              <h4><a href="" class="stretched-link">Magni Dolores</a></h4>
-              <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia</p>
-            </div>
-          </div><!-- End Service Item -->
-
-          <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="400">
-            <div class="service-item position-relative">
-              <div class="icon"><i class="bi bi-broadcast icon"></i></div>
-              <h4><a href="" class="stretched-link">Nemo Enim</a></h4>
-              <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis</p>
-            </div>
-          </div><!-- End Service Item -->
-
-        </div>
-
-      </div>
-
-    </section> --}}
-    <!-- /Featured Services Section -->
 
     <!-- About Section -->
     <section id="about" class="about section light-background">
@@ -226,7 +163,7 @@
     </section><!-- /About Section -->
 
     <!-- Services Section -->
-    <section id="services" class="services section">
+    <section id="visi-misi" class="services section">
 
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
@@ -518,7 +455,7 @@
     </section><!-- /Portfolio Section --> --}}
 
     <!-- Team Section -->
-    <section id="team" class="team section light-background">
+    <section id="struktur-organisasi" class="team section light-background">
 
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
@@ -528,9 +465,9 @@
 
       <div class="container">
 
-        <div class="row gy-4 my-5">
+        <div class="row gy-4">
 
-            <img src="{{ asset('assets/img/struktur-organisasi.jpg') }}" alt="">
+            <img src="{{ asset('assets/img/struktur-organisasi.jpeg') }}" alt="">
 
         </div>
 
@@ -539,7 +476,7 @@
     </section><!-- /Team Section -->
 
     <!-- Pricing Section -->
-    <section id="pricing" class="pricing section">
+    {{-- <section id="pricing" class="pricing section">
 
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
@@ -624,10 +561,11 @@
 
       </div>
 
-    </section><!-- /Pricing Section -->
+    </section> --}}
+    <!-- /Pricing Section -->
 
     <!-- Faq Section -->
-    <section id="faq" class="faq section light-background">
+    {{-- <section id="faq" class="faq section light-background">
 
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
@@ -699,15 +637,16 @@
 
       </div>
 
-    </section><!-- /Faq Section -->
+    </section> --}}
+    <!-- /Faq Section -->
 
     <!-- Contact Section -->
     <section id="contact" class="contact section">
 
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
-        <h2>Contact</h2>
-        <p><span>Need Help?</span> <span class="description-title">Contact Us</span></p>
+        <h2>Kontak</h2>
+        <p><span>Butuh Bantuan?</span> <span class="description-title">Hubungi Kami</span></p>
       </div><!-- End Section Title -->
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
@@ -720,15 +659,15 @@
               <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="200">
                 <i class="bi bi-geo-alt flex-shrink-0"></i>
                 <div>
-                  <h3>Address</h3>
-                  <p>A108 Adam Street, New York, NY 535022</p>
+                  <h3>Alamat</h3>
+                  <p>Jl. Raya Laswi No. 123, Desa Bumiwangi, Ciparay, Bandung 40381</p>
                 </div>
               </div><!-- End Info Item -->
 
               <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
                 <i class="bi bi-telephone flex-shrink-0"></i>
                 <div>
-                  <h3>Call Us</h3>
+                  <h3>Telepon</h3>
                   <p>+1 5589 55488 55</p>
                 </div>
               </div><!-- End Info Item -->
@@ -736,12 +675,12 @@
               <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
                 <i class="bi bi-envelope flex-shrink-0"></i>
                 <div>
-                  <h3>Email Us</h3>
+                  <h3>Email</h3>
                   <p>info@example.com</p>
                 </div>
               </div><!-- End Info Item -->
-
-              <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d48389.78314118045!2d-74.006138!3d40.710059!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a22a3bda30d%3A0xb89d1fe6bc499443!2sDowntown%20Conference%20Center!5e0!3m2!1sen!2sus!4v1676961268712!5m2!1sen!2sus" frameborder="0" style="border:0; width: 100%; height: 270px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+              {{-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d272.3009244288717!2d107.69396995477939!3d-7.032395381630533!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68c1bf475fc92b%3A0x2b06f494530a9d4c!2sKantor%20Desa%20Bumiwangi!5e1!3m2!1sid!2sid!4v1752722333011!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> --}}
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d272.3009244288717!2d107.69396995477939!3d-7.032395381630533!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68c1bf475fc92b%3A0x2b06f494530a9d4c!2sKantor%20Desa%20Bumiwangi!5e1!3m2!1sid!2sid!4v1752722333011!5m2!1sid!2sid" frameborder="0" style="border:0; width: 100%; height: 270px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
           </div>
 
@@ -791,7 +730,7 @@
 
   <footer id="footer" class="footer">
 
-    <div class="footer-newsletter">
+    {{-- <div class="footer-newsletter">
       <div class="container">
         <div class="row justify-content-center text-center">
           <div class="col-lg-6">
@@ -806,17 +745,18 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> --}}
 
     <div class="container footer-top">
       <div class="row gy-4">
         <div class="col-lg-4 col-md-6 footer-about">
           <a href="index.html" class="d-flex align-items-center">
-            <span class="sitename">BizLand</span>
+            <img src="{{ asset('assets/img/logo.png') }}" alt="" style="width: 100px">
+            {{-- <span class="sitename">Desa Bumiwangi</span> --}}
           </a>
           <div class="footer-contact pt-3">
-            <p>A108 Adam Street</p>
-            <p>New York, NY 535022</p>
+            <p>Jl. Raya Laswi No. 123, Desa Bumiwangi</p>
+            <p>Ciparay, Bandung 40381</p>
             <p class="mt-3"><strong>Phone:</strong> <span>+1 5589 55488 55</span></p>
             <p><strong>Email:</strong> <span>info@example.com</span></p>
           </div>
@@ -825,20 +765,21 @@
         <div class="col-lg-2 col-md-3 footer-links">
           <h4>Useful Links</h4>
           <ul>
-            <li><i class="bi bi-chevron-right"></i> <a href="#">Home</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="#">About us</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="#">Services</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="#">Terms of service</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="#hero">Home</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="#about">Tentang</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="#visi-misi">Visi & Misi</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="#struktur-organisasi">Struktur Organisasi</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="#contact">Contact</a></li>
           </ul>
         </div>
 
         <div class="col-lg-2 col-md-3 footer-links">
-          <h4>Our Services</h4>
+          <h4>Authentication</h4>
           <ul>
-            <li><i class="bi bi-chevron-right"></i> <a href="#">Web Design</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="#">Web Development</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="#">Product Management</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="#">Marketing</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="{{ route('login') }}">Login</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="{{ route('register') }}">Register</a></li>
+            {{-- <li><i class="bi bi-chevron-right"></i> <a href="#">Product Management</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="#">Marketing</a></li> --}}
           </ul>
         </div>
 
@@ -857,13 +798,13 @@
     </div>
 
     <div class="container copyright text-center mt-4">
-      <p>© <span>Copyright</span> <strong class="px-1 sitename">BizLand</strong> <span>All Rights Reserved</span></p>
+      <p>© <span id="date">{{ date('Y')  }}</span> <span>Copyright</span> <strong class="px-1 sitename">Desa Bumiwangi</strong> <span>All Rights Reserved</span></p>
       <div class="credits">
         <!-- All the links in the footer should remain intact. -->
         <!-- You can delete the links only if you've purchased the pro version. -->
         <!-- Licensing information: https://bootstrapmade.com/license/ -->
         <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        {{-- Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> --}}
       </div>
     </div>
 
