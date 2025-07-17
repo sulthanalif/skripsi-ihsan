@@ -111,7 +111,7 @@
                     <span class="time"><i class="fas fa-clock"></i> {{ \Carbon\Carbon::parse($document->created_at)->format('H:i, d M Y') }}</span>
                     @endif
                     <!-- Header. Optional -->
-                    <h3 class="timeline-header"><a class="text-primary" >Admin</a></h3>
+                    <h3 class="timeline-header"><a class="text-primary" >@if($document->approval?->status == 'approved') Disetujui @elseif($document->approval?->status == 'rejected') Ditolak @else Menunggu Persetujuan ... @endif</a></h3>
                     <!-- Body -->
                     <div class="timeline-body">
                         @if($document->approval?->status == 'approved')
@@ -147,17 +147,17 @@
                     <span class="time"><i class="fas fa-clock"></i> {{ \Carbon\Carbon::parse($document->approval?->sign_at)->format('H:i, d M Y') }}</span>
                     @endif
                     <!-- Header. Optional -->
-                    <h3 class="timeline-header"><a class="text-primary">{{ $document->approval?->signBy->name ?? 'Belum Ditandatangani' }}</a> </h3>
+                    <h3 class="timeline-header"><a class="text-primary">{{ 'Sudah Ditandatangani' ?? 'Belum Ditandatangani' }}</a> </h3>
 
                     <!-- Body -->
                     <div class="timeline-body">
-                        @if($document->approval?->sign) Telah Ditandatangani @else Menunggu Tanda Tangan ... @endif
+                        @if($document->approval?->sign) Telah Ditandatangani Oleh {{ $document->approval?->signBy->name }} @else Menunggu Tanda Tangan ... @endif
                     </div>
 
                     @if(Auth::user()->can('action-sign') && $document->approvalExists() && !$document->approval?->sign && $document->approval?->status == 'approved')
                         <div class="d-flex justify-content-start  py-3 mx-3">
                             <button class="btn btn-success mr-2" id='btn-sign' data-url="{{ route('document.approval.sign', $document) }}">Tandatangani</button>
-                            <button class="btn btn-danger" id='btn-reject' data-url="{{ route('document.approval.reject', $document) }}">Reject</button>
+                            {{-- <button class="btn btn-danger" id='btn-reject' data-url="{{ route('document.approval.reject', $document) }}">Reject</button> --}}
                         </div>
                     @endif
                     @if($document->approvalExists() && $document->approval?->sign)
