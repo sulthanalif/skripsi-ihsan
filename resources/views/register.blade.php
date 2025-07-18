@@ -245,124 +245,141 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="marital_status">Status Perkawinan <span class="text-danger">*</span></label>
-                        <select name="marital_status" id="marital_status"
-                            class="form-control @error('marital_status') is-invalid @enderror" data-selectjs="true"
-                            data-placeholder="Pilih Status Perkawinan">
-                            <option disabled selected>Pilih Status Perkawinan</option>
-                            <option value="Menikah" @selected(old('marital_status') == 'Menikah')>Menikah</option>
-                            <option value="Belum Menikah" @selected(old('marital_status') == 'Belum Menikah')>Belum Menikah</option>
-                            <option value="Janda" @selected(old('marital_status') == 'Janda')>Janda</option>
-                            <option value="Duda" @selected(old('marital_status') == 'Duda')>Duda</option>
-                        </select>
-                        @error('marital_status')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-
-                    <div class="form-group">
-                        <label for="occupation">Pekerjaan <span class="text-danger">*</span></label>
-                        <div class="input-group">
-                            <input type="text" name="occupation" id="occupation"
-                                class="form-control @error('occupation') is-invalid @enderror"
-                                value="{{ old('occupation') }}">
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-briefcase"></span>
-                                </div>
-                            </div>
-                            @error('occupation')
+                        <div class="form-group">
+                            <label for="marital_status">Status Perkawinan <span class="text-danger">*</span></label>
+                            <select name="marital_status" id="marital_status"
+                                class="form-control @error('marital_status') is-invalid @enderror" data-selectjs="true"
+                                data-placeholder="Pilih Status Perkawinan">
+                                <option disabled selected>Pilih Status Perkawinan</option>
+                                <option value="Menikah" @selected(old('marital_status') == 'Menikah')>Menikah</option>
+                                <option value="Belum Menikah" @selected(old('marital_status') == 'Belum Menikah')>Belum Menikah</option>
+                                <option value="Janda" @selected(old('marital_status') == 'Janda')>Janda</option>
+                                <option value="Duda" @selected(old('marital_status') == 'Duda')>Duda</option>
+                            </select>
+                            @error('marital_status')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                    </div>
 
-                    <div class="form-group full">
-                        <label for="address_ktp">Alamat (Sesuai KTP) <span class="text-danger">*</span></label>
-                        <div class="input-group">
-                            <textarea name="address_ktp" id="address_ktp" class="form-control @error('address_ktp') is-invalid @enderror">{{ old('address_ktp') }}</textarea>
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-map-marked-alt"></span>
+                        <div class="form-group">
+                            <label for="occupation">Pekerjaan <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <input type="text" name="occupation" id="occupation"
+                                    class="form-control @error('occupation') is-invalid @enderror"
+                                    value="{{ old('occupation') }}">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-briefcase"></span>
+                                    </div>
                                 </div>
+                                @error('occupation')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
-                            @error('address_ktp')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
                         </div>
-                    </div>
 
-                    <div class="form-group full">
-                        <label for="address_domisili">Alamat Domisili <span class="text-danger">*</span></label>
-                        <div class="input-group">
-                            <textarea name="address_domisili" id="address_domisili"
-                                class="form-control @error('address_domisili') is-invalid @enderror">{{ old('address_domisili') }}</textarea>
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-home"></span>
+                        <div class="form-group full">
+                            <label for="address_ktp">Alamat (Sesuai KTP) <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <textarea name="address_ktp" id="address_ktp" class="form-control @error('address_ktp') is-invalid @enderror">{{ old('address_ktp') }}</textarea>
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-map-marked-alt"></span>
+                                    </div>
                                 </div>
+                                @error('address_ktp')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
-                            @error('address_domisili')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
                         </div>
-                    </div>
-
-                    <div class="form-group full"> <label for="email">Email <span
-                                class="text-danger">*</span></label>
-                        <div class="input-group mb-3">
-                            <input type="email" name="email" id="email"
-                                class="form-control @error('email') is-invalid @enderror"
-                                value="{{ old('email') }}">
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-envelope"></span>
+                        <div class="form-group">
+                            <label for="address_domisili">Alamat Domisili <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <textarea name="address_domisili" id="address_domisili"
+                                    class="form-control @error('address_domisili') is-invalid @enderror">{{ old('address_domisili') }}</textarea>
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-home"></span>
+                                    </div>
                                 </div>
-                            </div>
-                            @error('email')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="password">Kata Sandi <span class="text-danger">*</span></label>
-                        <div class="input-group mb-3">
-                            <input type="password" name="password" id="password"
-                                class="form-control @error('password') is-invalid @enderror">
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span toggle="#password" class="fa fa-eye-slash field_icon toggle-password"
-                                        role="button"></span>
-                                </div>
-                            </div>
-                            @error('password')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="password_confirmation">Konfirmasi Kata Sandi <span
-                                class="text-danger">*</span></label>
-                        <div class="input-group mb-3">
-                            <input type="password" name="password_confirmation" id="password_confirmation"
-                                class="form-control">
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span toggle="#password_confirmation"
-                                        class="fa fa-eye-slash field_icon toggle-password" role="button"></span>
-                                </div>
+                                @error('address_domisili')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                     </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="username">Username <span class="text-danger">*</span></label>
+                            <div class="input-group mb-3">
+                                <input type="text" name="username" id="username"
+                                    class="form-control @error('username') is-invalid @enderror"
+                                    value="{{ old('username') }}">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-user"></span>
+                                    </div>
+                                </div>
+                                @error('username')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email <span class="text-danger">*</span></label>
+                            <div class="input-group mb-3">
+                                <input type="email" name="email" id="email"
+                                    class="form-control @error('email') is-invalid @enderror"
+                                    value="{{ old('email') }}">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-envelope"></span>
+                                    </div>
+                                </div>
+                                @error('email')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Kata Sandi <span class="text-danger">*</span></label>
+                            <div class="input-group mb-3">
+                                <input type="password" name="password" id="password"
+                                    class="form-control @error('password') is-invalid @enderror">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span toggle="#password" class="fa fa-eye-slash field_icon toggle-password"
+                                            role="button"></span>
+                                    </div>
+                                </div>
+                                @error('password')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password_confirmation">Konfirmasi Kata Sandi <span
+                                    class="text-danger">*</span></label>
+                            <div class="input-group mb-3">
+                                <input type="password" name="password_confirmation" id="password_confirmation"
+                                    class="form-control">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span toggle="#password_confirmation"
+                                            class="fa fa-eye-slash field_icon toggle-password" role="button"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
             </div>
 
             <div class="row">
-                <div class="col-12 mt-3">
+                <div class="col-12 px-4 mt-3">
                     <button type="submit" class="btn btn-primary btn-block">Daftar</button>
                 </div>
             </div>

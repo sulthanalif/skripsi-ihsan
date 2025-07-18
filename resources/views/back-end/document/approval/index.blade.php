@@ -78,6 +78,68 @@
                                 </td>
                             </tr>
                         </table>
+                        <table class="table table-borderless mb-0 text-md">
+                            <tr class="p-0">
+                                <td style="width: 50%; padding: 4px">
+                                    Surat Pengantar RT
+                                </td>
+                                <td style="width: 5%; padding: 4px">
+                                    :
+                                </td>
+                                <td style="padding: 4px">
+                                    @if($document->surat_pengantar_rt)
+                                        <a href="/storage/files/{{ $document->surat_pengantar_rt }}" target="_blank">Cek</a>
+                                    @else
+                                        Tidak ada
+                                    @endif
+                                </td>
+                            </tr>
+                            <tr class="p-0">
+                                <td style="width: 20%; padding: 4px">
+                                    Surat Pengantar RW
+                                </td>
+                                <td style="width: 5%; padding: 4px">
+                                    :
+                                </td>
+                                <td style="padding: 4px">
+                                    @if($document->surat_pengantar_rw)
+                                        <a href="/storage/files/{{ $document->surat_pengantar_rw }}" target="_blank">Cek</a>
+                                    @else
+                                        Tidak ada
+                                    @endif
+                                </td>
+                            </tr>
+                            <tr class="p-0">
+                                <td style="width: 20%; padding: 4px">
+                                    Kartu Keluarga
+                                </td>
+                                <td style="width: 5%; padding: 4px">
+                                    :
+                                </td>
+                                <td style="padding: 4px">
+                                    @if($document->kk)
+                                        <a href="/storage/files/{{ $document->kk }}" target="_blank">Cek</a>
+                                    @else
+                                        Tidak ada
+                                    @endif
+                                </td>
+                            </tr>
+                            <tr class="p-0">
+                                <td style="width: 20%; padding: 4px">
+                                    Kartu Tanda Penduduk
+                                </td>
+                                <td style="width: 5%; padding: 4px">
+                                    :
+                                </td>
+                                <td style="padding: 4px">
+                                    @if($document->ktp)
+                                        <a href="/storage/files/{{ $document->ktp }}" target="_blank">Cek</a>
+                                    @else
+                                        Tidak ada
+                                    @endif
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                </div>
             </div>

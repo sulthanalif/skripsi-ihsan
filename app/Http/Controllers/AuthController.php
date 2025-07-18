@@ -28,22 +28,22 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'email' => 'required|email',
+            'username' => 'required|exists:users,username',
             'password' => 'required',
         ]);
 
-        $this->ensureIsNotRateLimited($request->email);
+        $this->ensureIsNotRateLimited($request->username);
 
         if (!Auth::attempt([
-            'email' => $request->email,
+            'username' => $request->username,
             'password' => $request->password
         ], $request->boolean('remember'))) {
-            RateLimiter::hit($this->throttleKey($request->email));
+            RateLimiter::hit($this->throttleKey($request->username));
 
-            return back()->with('error', 'Email atau password salah.');
+            return back()->with('error', 'Username atau password salah.');
         }
 
-        RateLimiter::clear($this->throttleKey($request->email));
+        RateLimiter::clear($this->throttleKey($request->username));
 
         Session::regenerate();
 
@@ -54,6 +54,7 @@ class AuthController extends Controller
     {
         $data = $request->validate([
             'name' => ['required', 'string'],
+            'username' => ['required', 'string', 'unique:users,username'],
             'email' => ['required', 'email', 'unique:users,email'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'password_confirmation' => ['required'],
@@ -74,9 +75,10 @@ class AuthController extends Controller
 
         try {
             DB::beginTransaction();
-            
+
             $user = User::create([
                 'name' => $data['name'],
+                'username' => $data['username'],
                 'email' => $data['email'],
                 'password' => $data['password'],
             ]);
@@ -85,7 +87,7 @@ class AuthController extends Controller
 
             $user->profile()->create([
                 'nik' => $data['nik'],
-                'kk' => $data['kk'], 
+                'kk' => $data['kk'],
                 'birth_place' => $data['birth_place'],
                 'birth_date' => $data['birth_date'],
                 'gender' => $data['gender'],

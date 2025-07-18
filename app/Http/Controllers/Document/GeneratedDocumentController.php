@@ -108,7 +108,12 @@ class GeneratedDocumentController extends Controller
         $validationRules = [
             // 'document_title' => 'required|string|max:255',
             'user_id' => 'nullable|exists:users,id',
+            // 'surat_pengantar_rt' => 'required|file|mimes:pdf|max:2048',
+            // 'surat_pengantar_rw' => 'required|file|mimes:pdf|max:2048',
+            // 'kk' => 'required|file|mimes:pdf|max:2048',
+            // 'ktp' => 'required|file|mimes:pdf|max:2048',
         ];
+
         $validationMessages = [
             'document_title.required' => 'Document title is required.',
         ];
@@ -177,14 +182,31 @@ class GeneratedDocumentController extends Controller
         // Hitung 'no_urut'
         $number = $this->generateDocumentNumber($documentType, $user);
 
+        $fileData = [];
+        foreach (['surat_pengantar_rt', 'surat_pengantar_rw', 'kk', 'ktp'] as $fileKey) {
+            if ($request->hasFile($fileKey)) {
+                try {
+                    $file = $request->file($fileKey);
+                    $fileName = rand(1000, 9999) . '_' . time() . '_' . $fileKey . '.pdf';
+                    $file->storeAs('files', $fileName, 'public');
+                    $fileData[$fileKey] = $fileName;
+                } catch (\Exception $e) {
+                    Log::error("Failed to upload file {$fileKey}: " . $e->getMessage());
+                    throw new \Exception("Failed to upload file {$fileKey}. Please try again.");
+                }
+            }
+        }
+
         // 1. Create the Document
         $document = Document::create([
             'document_type_id' => $documentType->id,
             'number' => $number,
-            // 'title' => $validatedData['document_title'],
             'user_id' => $validatedData['user_id'] ?? Auth::id(),
             'created_by' => Auth::id(),
-            // 'order' => Document::countDocumentApproval($validatedData['user_id']) + 1,s
+            'surat_pengantar_rt' => $fileData['surat_pengantar_rt'] ?? null,
+            'surat_pengantar_rw' => $fileData['surat_pengantar_rw'] ?? null,
+            'kk' => $fileData['kk'] ?? null,
+            'ktp' => $fileData['ktp'] ?? null
         ]);
 
 

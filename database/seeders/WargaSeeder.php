@@ -17,6 +17,7 @@ class WargaSeeder extends Seeder
         $wargas = [
             [
                 'name' => 'John Doe',
+                'username' => 'johndoe',
                 'email' => 'john@example.com',
                 'password' => Hash::make('password'),
                 'nik' => '3171234567890001',
@@ -33,6 +34,7 @@ class WargaSeeder extends Seeder
             ],
             [
                 'name' => 'Jane Smith',
+                'username' => 'janesmith',
                 'email' => 'jane@example.com',
                 'password' => Hash::make('password'),
                 'nik' => '3171234567890003',
@@ -49,6 +51,7 @@ class WargaSeeder extends Seeder
             ],
             [
                 'name' => 'Ahmad Rizki',
+                'username' => 'ahmadrizki',
                 'email' => 'ahmad@example.com',
                 'password' => Hash::make('password'),
                 'nik' => '3171234567890005',
@@ -65,6 +68,7 @@ class WargaSeeder extends Seeder
             ],
             [
                 'name' => 'Maria Susanti',
+                'username' => 'mariasusanti',
                 'email' => 'maria@example.com',
                 'password' => Hash::make('password'),
                 'nik' => '3171234567890007',
@@ -81,6 +85,7 @@ class WargaSeeder extends Seeder
             ],
             [
                 'name' => 'Budi Santoso',
+                'username' => 'budisantoso',
                 'email' => 'budi@example.com',
                 'password' => Hash::make('password'),
                 'nik' => '3171234567890009',
@@ -100,6 +105,7 @@ class WargaSeeder extends Seeder
         foreach ($wargas as $warga) {
             $user = User::create([
                 'name' => $warga['name'],
+                'username' => $warga['username'],
                 'email' => $warga['email'],
                 'password' => $warga['password'],
             ]);

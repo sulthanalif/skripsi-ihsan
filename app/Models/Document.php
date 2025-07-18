@@ -23,6 +23,10 @@ class Document extends Model
         'created_by',
         'path',
         'active_date',
+        'surat_pengantar_rt',
+        'surat_pengantar_rw',
+        'kk',
+        'ktp'
     ];
 
     /**

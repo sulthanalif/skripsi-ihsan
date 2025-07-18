@@ -43,13 +43,13 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div id="user_id_pengaju" class="form-group" style="display: none;">>
+                    <div id="user_id_pengaju" class="form-group" style="display: none;">
 
                     </div>
 
                     <div class="form-group" id="user_id_wali" style="display: none;">
                         <label for="user_id">Pilih Pengaju <span class="text-danger">*</span></label>
-                        <select name="user_id" id="user_id" class="form-control @error('user_id') is-invalid @enderror" data-selectjs="true" data-placeholder="Pilih Pengaju" required>
+                        <select name="user_id" id="user_id" class="form-control @error('user_id') is-invalid @enderror" data-selectjs="true" data-placeholder="Pilih Pengaju">
                             {{-- Add options for approval 1 --}}
                         </select>
                         @error('user_id')
@@ -57,6 +57,49 @@
                         @enderror
                     </div>
 
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="surat_pengantar_rt">Surat Pengantar RT <span class="text-danger">*</span></label>
+                                <input type="file" name="surat_pengantar_rt" id="surat_pengantar_rt" class="form-control-file @error('surat_pengantar_rt') is-invalid @enderror" accept=".pdf" required>
+                                <small class="form-text text-muted">PDF only, max 1MB</small>
+                                @error('surat_pengantar_rt')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="surat_pengantar_rw">Surat Pengantar RW <span class="text-danger">*</span></label>
+                                <input type="file" name="surat_pengantar_rw" id="surat_pengantar_rw" class="form-control-file @error('surat_pengantar_rw') is-invalid @enderror" accept=".pdf" required>
+                                <small class="form-text text-muted">PDF only, max 1MB</small>
+                                @error('surat_pengantar_rw')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="kk">Kartu Keluarga <span class="text-danger">*</span></label>
+                                <input type="file" name="kk" id="kk" class="form-control-file @error('kk') is-invalid @enderror" accept=".pdf" required>
+                                <small class="form-text text-muted">PDF only, max 1MB</small>
+                                @error('kk')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="ktp">KTP <span class="text-danger">*</span></label>
+                                <input type="file" name="ktp" id="ktp" class="form-control-file @error('ktp') is-invalid @enderror" accept=".pdf" required>
+                                <small class="form-text text-muted">PDF only, max 1MB</small>
+                                @error('ktp')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
 
                     <hr>
 
@@ -156,17 +199,16 @@
             if (selectedValue === 'pengaju') {
                 userIdWali.css('display', 'none');
                 divUserIdPengaju.css('display', 'block');
-                userIdWali.empty();
+                // userList.empty();
                 divUserIdPengaju.append(`
                     <input type="hidden" name="user_id" value="${authUserId}">
                     <input type="text" class="form-control" value="${authUserName}" readonly>
                 `);
             } else if (selectedValue === 'wali') {
-                userIdWali.css('display', 'block');
                 divUserIdPengaju.css('display', 'none');
+                userIdWali.css('display', 'block');
                 divUserIdPengaju.empty();
                 if (users && Array.isArray(users) && users.length > 0) {
-
                     users.forEach(user => {
                         if(user && typeof user.id !== 'undefined' && typeof user.name !== 'undefined' && user.id !== authUserId) {
                             userList.append(`<option value="${user.id}">${user.profile ? user.profile.nik + ' - ' : ''}${user.name}</option>`);
@@ -180,8 +222,6 @@
 
                 // Trigger change event to update select plugin
                 userList.find('select').trigger('change');
-            } else {
-                // userList.empty();
             }
 
 
