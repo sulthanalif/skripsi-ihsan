@@ -45,9 +45,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::prefix('master')->group(function () {
-
-
-
         Route::get('/users', [UserController::class, 'index'])->middleware('can:manage-users')->name('users');
         Route::get('/user/{user}/show', [UserController::class, 'show'])->middleware('can:manage-users')->name('user.show');
         Route::post('/users', [UserController::class, 'store'])->middleware('can:user-create')->name('user.store');

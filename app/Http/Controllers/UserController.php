@@ -56,7 +56,7 @@ class UserController extends Controller
 
     public function store(UserRequest $request)
     {
-        return $this->createData(model: new User(), request: $request, route: 'user.index',
+        return $this->createData(model: new User(), request: $request, route: 'users',
             beforeSubmit: function ($model, $request, &$validatedData) { // Updated signature to receive validatedData by reference
                 if(!empty($validatedData['password'])) {
                     $validatedData['password'] = bcrypt($validatedData['password']);
@@ -74,7 +74,7 @@ class UserController extends Controller
     {
         // Note: The updateData trait method's beforeSubmit signature needs to be updated
         // to receive the validated data by reference to handle password correctly.
-        return $this->updateData(new User(), $request, $id, route: 'user.index',
+        return $this->updateData(new User(), $request, $id, route: 'users',
             beforeSubmit: function ($instance, $request, &$validatedData) { // Updated signature
                 if (isset($validatedData['password']) && !empty($validatedData['password'])) {
                     $validatedData['password'] = bcrypt($validatedData['password']);
@@ -89,7 +89,7 @@ class UserController extends Controller
 
     public function destroy($id)
     {
-        return $this->deleteData(new User(), $id, route: 'user.index');
+        return $this->deleteData(new User(), $id, route: 'users');
     }
 
 }

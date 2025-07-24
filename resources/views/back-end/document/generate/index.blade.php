@@ -30,7 +30,7 @@
                 @else
                     <div class="row">
                         @foreach ($documentTypes as $type)
-                            <div class="col-lg col-md-4 col-sm-6 mb-3"> {{-- col-lg will make it 5 per row on large screens if there are 5 items. Adjust as needed. --}}
+                            <div class="col-lg col-md-4 col-sm-6 mb-3">
                                 {{-- Check if the document type has any form fields defined --}}
                                 @if ($type->formFields()->count() > 0)
                                     <a href="{{ route('document.generated.create', $type->id) }}" class="btn btn-outline-primary btn-block p-3 d-flex flex-column align-items-center justify-content-center" style="height: 120px;">

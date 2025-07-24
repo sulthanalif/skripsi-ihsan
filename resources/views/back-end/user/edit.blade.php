@@ -24,6 +24,15 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
+                                <label for="username" class="form-label">Username</label>
+                                <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" id="username_edit" placeholder="Masukan Nama" value="{{ old('username') }}">
+                                @error('username')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
                                 <label for="email" class="form-label">Email</label>
                                 <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="email_edit"  placeholder="Masukan Email" value="{{ old('email') }}">
                                 @error('email')
@@ -40,8 +49,6 @@
                                 @enderror
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="role" class="form-label">Role</label>
@@ -56,32 +63,6 @@
                                 @enderror
                             </div>
                         </div>
-                        {{-- <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="department" class="form-label">Department</label>
-                                <select name="department_id[]" id="d" class="form-control @error('department_id') is-invalid @enderror" data-selectjs="true" data-placeholder="Pilih Department">
-                                    @foreach ($departments as $department)
-                                        <option @selected(old('department_id') == $department->id) value="{{$department->id}}">{{$department->name}}</option>
-                                    @endforeach
-                                </select>
-                                @error('department_id')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="position" class="form-label">Position</label>
-                                <select name="position_id[]" id="position_id" class="form-control @error('position_id') is-invalid @enderror" data-selectjs="true" data-placeholder="Pilih Position">
-                                    @foreach ($positions as $position)
-                                        <option @selected(old('position_id') == $position->id) value="{{$position->id}}">{{$position->name}}</option>
-                                    @endforeach
-                                </select>
-                                @error('position_id')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div> --}}
                     </div>
 
                 </div>

@@ -22,7 +22,6 @@ class DatabaseSeeder extends Seeder
         $rolePerangkatDesa = Role::create(['name' => 'perangkat-desa']);
         $roleWarga = Role::create(['name' => 'warga']);
 
-
         $permissions = [
             'dashboard',
             'master-data',
@@ -53,7 +52,6 @@ class DatabaseSeeder extends Seeder
             'document-list',
             'document-list-all',
 
-            // 'approve-document',
             'document-approval',
 
             'action-approve',
@@ -76,6 +74,30 @@ class DatabaseSeeder extends Seeder
 
         $roleWarga->givePermissionTo($permissionWarga);
 
+        $permissionAdmin = [
+            'dashboard',
+            'master-data',
+
+            'manage-residents',
+            'resident-create',
+            'resident-update',
+            'resident-delete',
+
+            'manage-document-types',
+            'document-type',
+            'document-field',
+            'document-create',
+
+            'document-list',
+            'document-list-all',
+
+            'document-approval',
+
+            'action-approve',
+        ];
+
+        $roleAdmin->givePermissionTo($permissionAdmin);
+
 
         $superAdmin = User::factory()->create([
             'name' => 'Super Admin',
@@ -85,6 +107,13 @@ class DatabaseSeeder extends Seeder
 
         $superAdmin->assignRole($roleSuperAdmin);
 
+        $admin = User::factory()->create([
+            'name' => 'Admin',
+            'username' => 'admin',
+            'email' => 'admin@mail.com',
+        ]);
+
+        $admin->assignRole($roleAdmin);
 
         $this->call([
             WargaSeeder::class,

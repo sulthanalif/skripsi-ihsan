@@ -40,6 +40,7 @@
                                 <thead>
                                     <tr>
                                         <th>Name</th>
+                                        <th>Username</th>
                                         <th>Email</th>
                                         <th>Role</th>
                                         <th class="text-center" style="width: 10%">Action</th>
@@ -49,6 +50,7 @@
                                     @foreach ($users as $user)
                                     <tr>
                                         <td>{{ $user->name }}</td>
+                                        <td>{{ $user->username }}</td>
                                         <td>{{ $user->email }}</td>
                                         <td>{{ $user->getRoleNames()->first() ?? '-' }}</td></td>
                                         <td class="text-center text-nowrap">
@@ -140,6 +142,7 @@
             .done(function (response) {
                 if(response && response.status){ // Pastikan response dan response.status ada
                     $('#name_edit').val(response.data.name);
+                    $('#username_edit').val(response.data.username);
                     $('#email_edit').val(response.data.email);
                     // $('#password_edit').val(response.data.password);
 

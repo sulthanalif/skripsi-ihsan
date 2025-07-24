@@ -22,6 +22,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'username',
         'email',
         'password',
     ];
@@ -63,6 +64,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(Approval::class, 'sign_by', 'id');
     }
+
 
     public function documents(): HasMany
     {
