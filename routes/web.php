@@ -107,6 +107,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/document/generate/download/{document}', [GeneratedDocumentController::class, 'generate'])->middleware('can:document-create')->name('document.generated.download');
 
     Route::get('/document/approval/{document}', [ApprovalController::class, 'index'])->middleware('can:document-approval')->name('document.approval.index');
+    Route::get('/document/approval/{document}/generate', [ApprovalController::class, 'generate'])->middleware('can:action-approve')->name('document.approval.generate');
     Route::post('document/approval/{document}/approve', [ApprovalController::class, 'approve'])->middleware('can:action-approve')->name('document.approval.approve');
     Route::post('document/approval/{document}/reject', [ApprovalController::class, 'reject'])->middleware('can:action-approve')->name('document.approval.reject');
     Route::post('document/approval/{document}/sign', [ApprovalController::class, 'sign'])->middleware('can:action-sign')->name('document.approval.sign');

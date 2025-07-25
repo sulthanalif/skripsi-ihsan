@@ -16,7 +16,7 @@ class Approval extends Model
         'note',
         'sign_by',
         'sign_at',
-        // 'sign_code',
+        'generated_at',
         'sign',
     ];
 

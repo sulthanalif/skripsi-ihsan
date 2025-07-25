@@ -153,11 +153,13 @@
             <!-- Timeline time label -->
             <div class="time-label">
                 <span class="bg-green btn mr-4">Tanggal Pengajuan: {{ \Carbon\Carbon::parse($document->created_at)->format('d M Y') }}</span>
-                @if(auth()->user()->roles->first()->name != 'warga')
+                @if(auth()->user()->roles->first()->name != 'warga' && $document->approval?->status == 'approved' && $document->approval?->generated_at)
                 <span class="btn btn-primary"><a href="{{ route('document.generated.download', $document->id) }}"target="_blank">Lihat Document</a></span>
                 @elseif(auth()->user()->roles->first()->name == 'warga' && $document->approvalExists() && $document->approval->sign)
                 <span class="btn btn-primary"><a href="{{ route('document.generated.download', $document->id) }}"target="_blank">Lihat Document</a></span>
                 @endif
+
+
             </div>
             <div>
                 <!-- Before each timeline item corresponds to one icon on the left scale -->
@@ -191,8 +193,16 @@
                             </div>
                         @endif
 
+
                         @if($document->approvalExists())
                             <b>Note : {{ $document->approval?->note ?? '-' }}</b>
+                        @endif
+
+                        @if(auth()->user()->roles->first()->name != 'warga' && $document->approval?->status == 'approved' && !$document->approval?->generated_at)
+                        <div class="d-flex justify-content-start py-3 mx-2">
+                            <a href="{{ route('document.approval.generate', $document) }}" class="btn btn-success mr-2">Buat Document</a>
+                            {{-- <button class="btn btn-danger" id='btn-reject' data-url="{{ route('document.approval.reject', $document) }}">Reject</button> --}}
+                        </div>
                         @endif
                     </div>
                 </div>

@@ -6,7 +6,7 @@ use App\Models\Document;
 use Milon\Barcode\DNS2D;
 use Illuminate\Http\Request;
 use Intervention\Image\ImageManager;
-use Intervention\Image\Drivers\Gd\Driver; 
+use Intervention\Image\Drivers\Gd\Driver;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -35,7 +35,16 @@ class ApprovalController extends Controller
         );
         return redirect()->back()->with('error', 'Document has been rejected.');
     }
-    
+
+    public function generate(Document $document)
+    {
+        $document->approval()->update(
+            ['generated_at' => now()],
+        );
+
+        return redirect()->back()->with('success', 'Document has been generated.');
+    }
+
     public function sign(Document $document, Request $request)
     {
         $approval = $document->approval()->where('user_id', Auth::id())->first();
@@ -57,7 +66,7 @@ class ApprovalController extends Controller
             "Document Number: " . $document->number . "\n" .
             "Signed At: " . $sign_at->toDateTimeString() . "\n" .
             "Signed By: " . $sign_by->name;
-            
+
         $approval->update([
             'sign' => $sign,
             'sign_at' => $sign_at,

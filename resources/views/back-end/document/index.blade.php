@@ -76,14 +76,14 @@
                             </td>
                             <td>
                                 @if ($document->approvalExists())
-                                    {{ $document->approval->signBy->name }}
+                                    {{ $document->approval->signBy->name  ?? '-'}}
                                 @else
                                     -
                                 @endif
                             </td>
                             <td>{{ $document->created_at->format('d M Y, H:i') }}</td>
                             <td class="text-center" style="white-space:nowrap">
-                                @if (auth()->user()->roles->first()->name != 'warga')
+                                @if (auth()->user()->roles->first()->name != 'warga' && $document->approval?->status == 'approved' && $document->approval?->generated_at)
                                 <a href="{{ route('document.generated.download', $document->id) }}" class="btn btn-sm btn-info" target="_blank">Lihat</a>
                                 @elseif(auth()->user()->roles->first()->name == 'warga' && $document->approvalExists() && $document->approval->sign)
                                 <a href="{{ route('document.generated.download', $document->id) }}" class="btn btn-sm btn-info" target="_blank">Lihat</a>
