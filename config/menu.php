@@ -59,6 +59,13 @@ return [
         'permission' => 'document-list',
         'active_patterns' => 'documents*', // Cocokkan URL path
     ],
+    [
+        'label' => 'Laporan',
+        'icon' => 'fas fa-file',
+        'route' => 'report', // Menggunakan 'url' bukan 'route'
+        'permission' => 'report',
+        'active_patterns' => 'report*', // Cocokkan URL path
+    ],
 
 
     // tambahkan item lain sesuai kebutuhan…

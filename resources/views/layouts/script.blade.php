@@ -99,7 +99,7 @@
         "paging": true, // Mengaktifkan pagination
         // "ordering": true, // Mengaktifkan sorting kolom
         // "info": true, // Menampilkan info jumlah entri
-        // "searching": true, // Mengaktifkan kolom pencarian
+        "searching": true, // Mengaktifkan kolom pencarian
         "language": { // Opsi: Ubah teks menjadi Bahasa Indonesia
               "lengthMenu": "Tampilkan _MENU_ entri per halaman",
               "zeroRecords": "Tidak ada data yang ditemukan",

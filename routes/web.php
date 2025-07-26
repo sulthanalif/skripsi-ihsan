@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ApprovalController;
 use App\Http\Controllers\ResidentController;
@@ -112,5 +113,6 @@ Route::middleware('auth')->group(function () {
     Route::post('document/approval/{document}/reject', [ApprovalController::class, 'reject'])->middleware('can:action-approve')->name('document.approval.reject');
     Route::post('document/approval/{document}/sign', [ApprovalController::class, 'sign'])->middleware('can:action-sign')->name('document.approval.sign');
 
+    Route::get('/report', [ReportController::class, 'index'])->middleware('can:report')->name('report');
 });
 

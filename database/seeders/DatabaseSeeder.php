@@ -57,6 +57,7 @@ class DatabaseSeeder extends Seeder
             'action-approve',
             'action-sign',
 
+            'report',
         ];
 
         foreach ($permissions as $permission) {
