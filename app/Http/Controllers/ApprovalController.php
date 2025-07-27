@@ -47,7 +47,7 @@ class ApprovalController extends Controller
 
     public function sign(Document $document, Request $request)
     {
-        $approval = $document->approval()->where('user_id', Auth::id())->first();
+        $approval = $document->approval()->first();
 
         if (!$approval) {
             return redirect()->back()->with('error', 'You have not approved this document yet.');
