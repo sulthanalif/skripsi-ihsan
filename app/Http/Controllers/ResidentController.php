@@ -76,4 +76,9 @@ class ResidentController extends Controller
             }
         );
     }
+
+    public function destroy($id)
+    {
+        return $this->deleteData(new User(), $id, route: 'residents');
+    }
 }

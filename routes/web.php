@@ -50,7 +50,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/user/{user}/show', [UserController::class, 'show'])->middleware('can:manage-users')->name('user.show');
         Route::post('/users', [UserController::class, 'store'])->middleware('can:user-create')->name('user.store');
         Route::put('/users/{user}', [UserController::class, 'update'])->middleware('can:user-update')->name('user.update');
-        Route::delete('/users/{user}', [UserController::class, 'destroy'])->middleware('can:user-delete')->name('user.destroy');
+        Route::post('/users/{user}', [UserController::class, 'destroy'])->middleware('can:user-delete')->name('user.destroy');
 
         Route::resource('role-permission', RolePermissionController::class)
             ->middleware('can:manage-roles')
@@ -80,6 +80,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/resident/{user}/show', [ResidentController::class, 'show'])->middleware('can:manage-residents')->name('resident.show');
         Route::post('/resident', [ResidentController::class, 'store'])->middleware('can:resident-create')->name('resident.store');
         Route::put('/resident/{user}', [ResidentController::class, 'update'])->middleware('can:resident-update')->name('resident.update');
+        Route::post('/resident/{user}', [ResidentController::class, 'destroy'])->middleware('can:resident-delete')->name('resident.destroy');
 
         Route::prefix('document')->group(function () {
             Route::get('/document-type', [DocumentTypeController::class, 'index'])->middleware('can:document-type')->name('document.type.index');

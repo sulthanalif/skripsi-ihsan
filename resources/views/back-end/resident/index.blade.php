@@ -63,13 +63,13 @@
                                         <td>{{ $user->profile->occupation }}</td>
                                         <td>{{ $user->profile->address_ktp }}</td>
                                         <td class="text-center text-nowrap">
-                                            @can('user-update')
+                                            @can('resident-update')
                                             <a href="#" class="edit" id="btn-edit" data-url="{{ route('resident.update', $user->id) }}" data-id="{{ $user->id }}" data-get="{{ route('resident.show', $user->id) }}">
                                                 <i class="fa fa-pen mr-3 text-dark"></i>
                                             </a>
                                             @endcan
-                                            @can('user-delete')
-                                                <a href="#" id="btn-destroy" data-id="{{ $user->id }}" data-url="{{ route('user.destroy', $user->id) }}"><i class="fa fa-trash text-red"></i></a>
+                                            @can('resident-delete')
+                                                <a href="#" id="btn-destroy" data-id="{{ $user->id }}" data-url="{{ route('resident.destroy', $user->id) }}"><i class="fa fa-trash text-red"></i></a>
                                             @endcan
                                         </td>
                                     </tr>
@@ -129,7 +129,7 @@
                         error: function (xhr, ajaxOptions, thrownError) {
                             // Error pada request AJAX (misal server error 500, 403).
                             // Server mungkin juga sudah menyiapkan flash message error saat redirect.
-                            // console.log(xhr.responseText);
+                            console.log(xhr.responseText);
 
                             Swal.fire("Gagal!", "Terjadi kesalahan saat menghapus data. Silakan coba lagi.", "error").then(function(){
                                 location.reload();
