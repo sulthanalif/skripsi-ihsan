@@ -29,13 +29,19 @@
             <form action="{{ route('document.generated.store', $documentType->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="card-body">
+                    @if(auth()->user()->roles->first()->name == 'warga')
+                    <div id="user_id" class="form-group">
+                        <label for="user_id">Atas Nama </label>
+                        <input type="hidden" name="user_id" id="user_id" value="{{ auth()->id() }}">
+                        <input type="text" class="form-control" id="name" readonly value="{{ auth()->user()->name }}">
+                    </div>
+                    @else
                     <div class="form-group">
                         <label for="sebagai">Sebagai <span class="text-danger">*</span></label>
-                            {{-- {{auth()->user()->roles->first()}} --}}
 
                             <select name="sebagai" id="sebagai" class="form-control sebagai @error('sebagai') is-invalid @enderror" data-selectjs="true" data-placeholder="Pilih Sebagai..." required>
                                 <option value="" selected disabled>Pilih Sebagai...</option>
-                                <option value="pengaju" >Pengaju</option>
+                                <option value="pengaju">Pengaju</option>
                                 <option value="wali" >Wali</option>
                             </select>
 
@@ -56,6 +62,7 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
+                    @endif
 
 
                     <div class="row">

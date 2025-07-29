@@ -33,7 +33,6 @@ class GeneratedDocumentController extends Controller
 
     public function create(DocumentType $documentType)
     {
-        // Pastikan documentType memiliki formFields
         if ($documentType->formFields()->count() === 0) {
             return redirect()->back()->with('error', 'This document type has no fields defined.');
         }
