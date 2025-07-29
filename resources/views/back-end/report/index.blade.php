@@ -38,9 +38,9 @@
                                 </select>
                             </div>
                         </div> --}}
-                        {{-- <div class="row">
-                            <button id="btn-export" class="btn btn-success">Export</button>
-                        </div> --}}
+                        <div class="row">
+                            <button id="btn-export" class="btn btn-success" data-toggle="modal" data-target="#modal-export">Export</button>
+                        </div>
                     </div>
                 </div>
                 <!-- /.card-header -->
@@ -98,23 +98,26 @@
           </div>
     </div>
 </section>
+
+@include('back-end.report.modal-export')
 @endsection
 
 @push('scripts')
 <script>
     $(document).ready(function() {
+
         $("#data-table-report").DataTable({
         "responsive": true, // Membuat tabel responsif untuk berbagai ukuran layar
         "lengthChange": true, // Menampilkan dropdown "Show X entries"
         "autoWidth": false, // Menonaktifkan penyesuaian lebar kolom otomatis
-        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"], // Mengaktifkan tombol ekspor/visibilitas kolom
+        // "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"], // Mengaktifkan tombol ekspor/visibilitas kolom
         "paging": true, // Mengaktifkan pagination
         "ordering": true, // Mengaktifkan sorting kolom
         "info": true, // Menampilkan info jumlah entri
         "searching": true, // Mengaktifkan kolom pencarian
-        "dom": '<"row"<"col-sm-12 col-md-6"B><"col-sm-12 col-md-6"f>>' +
-               '<"row"<"col-sm-12"tr>>' +
-               '<"row"<"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>', // Custom DOM for better responsive layout
+        // "dom": '<"row"<"col-sm-12 col-md-6"B><"col-sm-12 col-md-6"f>>' +
+        //        '<"row"<"col-sm-12"tr>>' +
+        //        '<"row"<"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>', // Custom DOM for better responsive layout
         "language": { // Opsi: Ubah teks menjadi Bahasa Indonesia
               "lengthMenu": "Tampilkan _MENU_ entri per halaman",
               "zeroRecords": "Tidak ada data yang ditemukan",

@@ -115,5 +115,6 @@ Route::middleware('auth')->group(function () {
     Route::post('document/approval/{document}/sign', [ApprovalController::class, 'sign'])->middleware('can:action-sign')->name('document.approval.sign');
 
     Route::get('/report', [ReportController::class, 'index'])->middleware('can:report')->name('report');
+    Route::post('/report/export', [ReportController::class, 'export'])->middleware('can:report')->name('report.export');
 });
 
