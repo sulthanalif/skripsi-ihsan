@@ -31,6 +31,9 @@ class ResidentRequest extends FormRequest
 
         return [
             'name' => ['required', 'string'],
+            'username' => ['required', 'string',
+                Rule::unique('users', 'username')->ignore($user->id ?? null),
+            ],
             'email' => [
                 'required',
                 'email',
@@ -44,10 +47,10 @@ class ResidentRequest extends FormRequest
             'nik' => [
                 'required',
                 'string',
-                'size:16',
+                'min:15',
                 Rule::unique('profiles', 'nik')->ignore($user->profile->id ?? null),
             ],
-            'kk' => ['required', 'string', 'size:16'],
+            'kk' => ['required', 'string', 'min:15'],
             'birth_place' => ['required', 'string'],
             'birth_date' => ['required', 'date'],
             'gender' => ['required', 'in:Laki-laki,Perempuan'],

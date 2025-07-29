@@ -151,6 +151,7 @@
             .done(function (response) {
                 if(response && response.status){ // Pastikan response dan response.status ada
                     $('#name_edit').val(response.data.name);
+                    $('#username_edit').val(response.data.username);
                     $('#email_edit').val(response.data.email);
                     $('#nik_edit').val(response.data.profile.nik);
                     $('#kk_edit').val(response.data.profile.kk);

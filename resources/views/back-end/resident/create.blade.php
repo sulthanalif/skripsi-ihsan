@@ -12,7 +12,7 @@
                 @csrf
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="name" class="form-label">Nama</label>
                                 <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="name" placeholder="Masukan Nama" value="{{ old('name') }}">
@@ -21,7 +21,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="email" class="form-label">Email</label>
                                 <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="email"  placeholder="Masukan Email" value="{{ old('email') }}">
@@ -30,7 +30,18 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-md-4">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="username" class="form-label">Username</label>
+                                <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" id="username"  placeholder="Masukan username"  value="{{ old('username') }}">
+                                @error('username')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="password" class="form-label">Password</label>
                                 <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="password"  placeholder="Masukan Password"  value="{{ old('password') }}">
