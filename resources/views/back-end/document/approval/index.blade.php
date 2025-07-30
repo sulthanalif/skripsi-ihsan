@@ -77,6 +77,17 @@
                                     {{ ucfirst($document->approval?->sign ? 'Telah Ditandatangani' : 'Belum Ditandatangani') }}
                                 </td>
                             </tr>
+                            <tr class="p-0">
+                                <td style="width: 20%; padding: 4px">
+                                    Input User
+                                </td>
+                                <td style="width: 5%; padding: 4px">
+                                    :
+                                </td>
+                                <td style="padding: 4px">
+                                    <a id="detail-input" class="btn btn-primary btn-sm" data-document="{{ json_encode($document->getFieldAndValues()) }}">Cek</a>
+                                </td>
+                            </tr>
                         </table>
                         <table class="table table-borderless mb-0 text-md">
                             <tr class="p-0">
@@ -88,7 +99,7 @@
                                 </td>
                                 <td style="padding: 4px">
                                     @if($document->surat_pengantar_rt)
-                                        <a href="/storage/files/{{ $document->surat_pengantar_rt }}" target="_blank">Cek</a>
+                                        <a class="btn btn-primary btn-sm" href="/storage/files/{{ $document->surat_pengantar_rt }}" target="_blank">Cek</a>
                                     @else
                                         Tidak ada
                                     @endif
@@ -103,7 +114,7 @@
                                 </td>
                                 <td style="padding: 4px">
                                     @if($document->surat_pengantar_rw)
-                                        <a href="/storage/files/{{ $document->surat_pengantar_rw }}" target="_blank">Cek</a>
+                                        <a class="btn btn-primary btn-sm"  href="/storage/files/{{ $document->surat_pengantar_rw }}" target="_blank">Cek</a>
                                     @else
                                         Tidak ada
                                     @endif
@@ -118,7 +129,7 @@
                                 </td>
                                 <td style="padding: 4px">
                                     @if($document->kk)
-                                        <a href="/storage/files/{{ $document->kk }}" target="_blank">Cek</a>
+                                        <a class="btn btn-primary btn-sm" href="/storage/files/{{ $document->kk }}" target="_blank">Cek</a>
                                     @else
                                         Tidak ada
                                     @endif
@@ -133,7 +144,7 @@
                                 </td>
                                 <td style="padding: 4px">
                                     @if($document->ktp)
-                                        <a href="/storage/files/{{ $document->ktp }}" target="_blank">Cek</a>
+                                        <a class="btn btn-primary btn-sm" href="/storage/files/{{ $document->ktp }}" target="_blank">Cek</a>
                                     @else
                                         Tidak ada
                                     @endif
@@ -294,6 +305,23 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
+<div class="modal fade" id="modal-detail" aria-modal="true" role="dialog">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">User Input</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body" id="modal-detail-body">
+
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
 
 {{-- @include('back-end.document.approval.modal-closed') --}}
 @endsection
@@ -301,6 +329,56 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
+            $('#detail-input').on('click', function () {
+                // Mengambil data dari atribut data-document
+                var fieldValues = $(this).data('document');
+                var modalBody = $('#modal-detail-body');
+                modalBody.empty(); // Kosongkan konten modal sebelumnya
+
+                // Buat elemen tabel
+                var table = $('<table>').addClass('table table-bordered');
+                var tbody = $('<tbody>');
+
+                // Jika data masih dalam bentuk string JSON, ubah menjadi objek/array
+                if (typeof fieldValues === 'string') {
+                    try {
+                        fieldValues = JSON.parse(fieldValues);
+                    } catch (e) {
+                        console.error('Gagal mem-parsing data JSON:', e);
+                        // Tampilkan pesan error jika parsing gagal
+                        tbody.append('<tr><td colspan="2" class="text-danger">Error: Format data tidak valid.</td></tr>');
+                        table.append(tbody);
+                        modalBody.append(table);
+                        $('#modal-detail').modal('show');
+                        return; // Hentikan eksekusi
+                    }
+                }
+
+                // --- BAGIAN UTAMA YANG DIPERBAIKI ---
+                // Cek apakah fieldValues adalah sebuah array dan memiliki isi
+                if (Array.isArray(fieldValues) && fieldValues.length > 0) {
+                    // Lakukan perulangan untuk setiap item (objek) di dalam array
+                    fieldValues.forEach(function(item) {
+                        var tr = $('<tr>');
+                        // Kolom pertama diisi dengan 'field_label' dari setiap item
+                        tr.append($('<td>').text(item.field_label));
+                        // Kolom kedua diisi dengan 'value', tampilkan '-' jika kosong
+                        tr.append($('<td>').text(item.value || '-'));
+                        tbody.append(tr);
+                    });
+                } else {
+                    // Tampilkan pesan jika tidak ada data
+                    tbody.append($('<tr>')
+                        .append($('<td colspan="2">').text('Tidak ada data yang tersedia'))
+                    );
+                }
+
+                // Masukkan tabel ke dalam modal dan tampilkan
+                table.append(tbody);
+                modalBody.append(table);
+                $('#modal-detail').modal('show');
+            });
+
             $('#btn-sign').on('click', function () {
                 var url = $(this).data('url');
                 $('.form-group').hide();

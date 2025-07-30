@@ -63,6 +63,28 @@ class Document extends Model
         return null;
     }
 
+    /**
+     * Get field name, label and value for a document
+     *
+     * @return array Array containing field_name, field_label and value
+     */
+    public function getFieldAndValues(): array
+    {
+        $result = [];
+
+        foreach ($this->documentType->formFields as $formField) {
+            $documentFieldValue = $this->fieldValues->where('form_field_id', $formField->id)->first();
+
+            $result[] = [
+                'field_name' => $formField->field_name,
+                'field_label' => $formField->field_label,
+                'value' => $documentFieldValue ? $documentFieldValue->value : null
+            ];
+        }
+
+        return $result;
+    }
+
     // public function getLastUserApproval()
     // {
     //     return $this->approvals()->where('status', '!=', 'approved')->exists()
